@@ -1,0 +1,12 @@
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\bin\Events\VBEvents.dll
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\bin\Events\VBEvents.pdb
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\bin\Events\BCrypt.Net.dll
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\obj\Release\PoolcatsEventsVB.vbprojResolveAssemblyReference.cache
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\obj\Release\VBEvents.dll
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\obj\Release\VBEvents.pdb
+D:\ASPRunnerNETProjects\Poolcats\output\bin\Events\VBEvents.dll
+D:\ASPRunnerNETProjects\Poolcats\output\bin\Events\VBEvents.pdb
+D:\ASPRunnerNETProjects\Poolcats\output\bin\Events\BCrypt.Net.dll
+D:\ASPRunnerNETProjects\Poolcats\output\obj\Release\PoolcatsEventsVB.vbprojResolveAssemblyReference.cache
+D:\ASPRunnerNETProjects\Poolcats\output\obj\Release\VBEvents.dll
+D:\ASPRunnerNETProjects\Poolcats\output\obj\Release\VBEvents.pdb

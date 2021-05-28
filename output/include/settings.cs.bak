@@ -1,0 +1,1217 @@
+using System;
+using System.IO;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Web;
+using System.Web.Mvc;
+using System.Reflection;
+using runnerDotNet;
+namespace runnerDotNet
+{
+	public static partial class Settings_##@TABLE.strShortTableName##
+	{
+		static public void Apply()
+		{
+			SettingsMap arrGPP = SettingsMap.GetArray(), arrGridTabs = SettingsMap.GetArray(), arrRPP = SettingsMap.GetArray(), dIndex = null, detailsParam = SettingsMap.GetArray(), edata = SettingsMap.GetArray(), eventsData = SettingsMap.GetArray(), fdata = SettingsMap.GetArray(), fieldLabelsArray = new XVar(), fieldToolTipsArray = new XVar(), hours = null, intervalData = SettingsMap.GetArray(), masterParams = SettingsMap.GetArray(), pageTitlesArray = new XVar(), pagesArray = new XVar(), placeHoldersArray = new XVar(), popupPagesLayoutNames = SettingsMap.GetArray(), query = null, queryData_Array = new XVar(), reportGroupFields = SettingsMap.GetArray(), rgroupField = SettingsMap.GetArray(), strOriginalDetailsTable = null, table = null, tableKeysArray = new XVar(), tdataArray = new XVar(), tstrOrderBy = null, vdata = SettingsMap.GetArray();
+##fndef writeParentFilters @f##
+##if @f##
+##if @f.m_strParentFilter##
+			fdata["parentFilters"].Add("##@f.m_strParentFilter s##");
+			##writeParentFilters Fields{@f.m_strParentFilter}##
+##endif##
+##endif##
+##endfndef##
+##fndef writeDependantFilters @f##
+##if @f##
+##if @f.m_strChildFilter##
+			fdata["dependentFilters"].Add("##@f.m_strChildFilter s##");
+			##writeDependantFilters Fields{@f.m_strChildFilter}##
+##endif##
+##endif##
+##endfndef##
+			tdataArray["##@TABLE.strShortTableName##"] = SettingsMap.GetArray();
+			tdataArray["##@TABLE.strShortTableName##"][".searchableFields"] = SettingsMap.GetArray();
+##if @TABLE.bShowFirst##
+			tdataArray["##@TABLE.strShortTableName##"][".truncateText"] = true;
+			tdataArray["##@TABLE.strShortTableName##"][".NumberOfChars"] = ##@TABLE.nNumberOfChars##;
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".ShortName"] = "##@TABLE.strShortTableName##";
+			tdataArray["##@TABLE.strShortTableName##"][".OwnerID"] = "##@TABLE.strMainTableOwnerID s##";
+##if @TABLE.strOriginalTable##
+			tdataArray["##@TABLE.strShortTableName##"][".OriginalTable"] = "##@TABLE.strOriginalTable s##";
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".OriginalTable"] = "##@TABLE.strDataSourceTable s##";
+##endif##
+			GlobalVars.defaultPages = MVCFunctions.my_json_decode(new XVar("##page_default @TABLE.strDataSourceTable##"));
+			tdataArray["##@TABLE.strShortTableName##"][".pages"] = CommonFunctions.types2pages(MVCFunctions.my_json_decode(new XVar("##page_list @TABLE.strDataSourceTable##")));
+			tdataArray["##@TABLE.strShortTableName##"][".defaultPages"] = GlobalVars.defaultPages;
+			fieldLabelsArray["##@TABLE.strShortTableName##"] = SettingsMap.GetArray();
+			fieldToolTipsArray["##@TABLE.strShortTableName##"] = SettingsMap.GetArray();
+			pageTitlesArray["##@TABLE.strShortTableName##"] = SettingsMap.GetArray();
+			placeHoldersArray["##@TABLE.strShortTableName##"] = SettingsMap.GetArray();
+##foreach @BUILDER.ProjectLabels.arrLanguageLabels as @l##
+			if(CommonFunctions.mlang_getcurrentlang() == "##@l.strLanguage s##")
+			{
+				fieldLabelsArray["##@TABLE.strShortTableName##"]["##@l.strLanguage s##"] = SettingsMap.GetArray();
+				fieldToolTipsArray["##@TABLE.strShortTableName##"]["##@l.strLanguage s##"] = SettingsMap.GetArray();
+				placeHoldersArray["##@TABLE.strShortTableName##"]["##@l.strLanguage s##"] = SettingsMap.GetArray();
+				pageTitlesArray["##@TABLE.strShortTableName##"]["##@l.strLanguage s##"] = SettingsMap.GetArray();
+##foreach @l.arrTableLabels as @t filter @t.strTableName==@TABLE.strDataSourceTable##
+##foreach @t.arrFieldLabels as @f##
+				fieldLabelsArray["##@TABLE.strShortTableName##"]["##@l.strLanguage s##"]["##@f.strField g##"] = "##@f.strLabel 8s##";
+				fieldToolTipsArray["##@TABLE.strShortTableName##"]["##@l.strLanguage s##"]["##@f.strField g##"] = "##@f.strTooltip 8s##";
+				placeHoldersArray["##@TABLE.strShortTableName##"]["##@l.strLanguage s##"]["##@f.strField g##"] = "##@f.strPlaceholder 8s##";
+##endfor##
+##foreach @t.arrPageTitleLabels as @p##
+				pageTitlesArray["##@TABLE.strShortTableName##"]["##@l.strLanguage s##"]["##@p.strPage s##"] = "##@p.strTitle 8s##";
+##endfor##
+##endfor##
+				if(XVar.Pack(MVCFunctions.count(fieldToolTipsArray["##@TABLE.strShortTableName##"]["##@l.strLanguage s##"])))
+				{
+					tdataArray["##@TABLE.strShortTableName##"][".isUseToolTips"] = true;
+				}
+			}
+##endfor##
+##if !@TABLE.bCSSearch##
+			tdataArray["##@TABLE.strShortTableName##"][".NCSearch"] = true;
+##endif##
+##if @TABLE.nType==titCHART##
+##if @TABLE.bAutoUpdate##
+			tdataArray["##@TABLE.strShortTableName##"][".ChartRefreshTime"] = ##@TABLE.nAutoUpdateIntervalMin##;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".ChartRefreshTime"] = 0;
+##endif##
+##endif##
+##if @TABLE.bListScroll && !IsAdminTable(@TABLE)##
+			tdataArray["##@TABLE.strShortTableName##"][".scrollGridBody"] = true;
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".shortTableName"] = "##@TABLE.strShortTableName s##";
+			tdataArray["##@TABLE.strShortTableName##"][".nSecOptions"] = ##@TABLE.nSecOptions s##;
+##if @TABLE.listGridLayout != gltCOLUMNS && @TABLE.listGridLayout != gltFLEXIBLE##
+			tdataArray["##@TABLE.strShortTableName##"][".recsPerRowList"] = ##@TABLE.nRecordsPerRowList s##;
+##endif##
+##if @TABLE.printGridLayout != gltCOLUMNS##
+			tdataArray["##@TABLE.strShortTableName##"][".recsPerRowPrint"] = ##@TABLE.nRecordsPerRowPrint s##;
+##endif##
+##if @TABLE.nLimitRecords > 0##
+			tdataArray["##@TABLE.strShortTableName##"][".recsLimit"] = ##@TABLE.nLimitRecords s##;
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".mainTableOwnerID"] = "##@TABLE.strMainTableOwnerID s##";
+			tdataArray["##@TABLE.strShortTableName##"][".entityType"] = ##@TABLE.nType##;
+##if @TABLE.strOriginalTable##
+			tdataArray["##@TABLE.strShortTableName##"][".strOriginalTableName"] = "##@TABLE.strOriginalTable s##";
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".strOriginalTableName"] = "##@TABLE.strDataSourceTable s##";
+##endif##
+##if !@BUILDER.arrEncryptInfo{@TABLE.strConnectionID}.empty##
+##if @BUILDER.arrEncryptInfo{@TABLE.strConnectionID}.nEncryptMode != 0##
+##if @TABLE.strDataSourceTable=="admin_users" && @BUILDER.bCreateLoginPage && @BUILDER.m_nLoginMethod == SECURITY_TABLE && @BUILDER.strLoginDataSource.len##
+##if (@BUILDER.Tables{@BUILDER.strLoginDataSource}.m_arrFieldObj[bEncrypted].len || Fields[bEncrypted].len)##
+			tdataArray["##@TABLE.strShortTableName##"][".hasEncryptedFields"] = true;
+##endif##
+##elseif Fields[bEncrypted].len##
+			tdataArray["##@TABLE.strShortTableName##"][".hasEncryptedFields"] = true;
+##endif##
+##endif##
+##endif##
+##if Fields[viewFormats[strViewFormat == FORMAT_AUDIO || strViewFormat == FORMAT_DATABASE_AUDIO].len].len##
+			tdataArray["##@TABLE.strShortTableName##"][".isUseAudio"] = true;
+##endif##
+##if Fields[viewFormats[strViewFormat == FORMAT_VIDEO || strViewFormat == FORMAT_DATABASE_VIDEO].len].len##
+			tdataArray["##@TABLE.strShortTableName##"][".isUseVideo"] = true;
+##endif##
+##if @TABLE.bAddPopup && @TABLE.strDataSourceTable!="admin_members" && @TABLE.strDataSourceTable!="admin_rights"##
+			tdataArray["##@TABLE.strShortTableName##"][".showAddInPopup"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".showAddInPopup"] = false;
+##endif##
+##if @TABLE.bEditPopup && @TABLE.strDataSourceTable!="admin_members" && @TABLE.strDataSourceTable!="admin_rights"##
+			tdataArray["##@TABLE.strShortTableName##"][".showEditInPopup"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".showEditInPopup"] = false;
+##endif##
+##if @TABLE.bViewPopup && @TABLE.strDataSourceTable!="admin_members" && @TABLE.strDataSourceTable!="admin_rights"##
+			tdataArray["##@TABLE.strShortTableName##"][".showViewInPopup"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".showViewInPopup"] = false;
+##endif##
+			popupPagesLayoutNames = SettingsMap.GetArray();
+##if @TABLE.strDataSourceTable!="admin_members" && @TABLE.strDataSourceTable!="admin_rights"##
+##if @TABLE.bAddPopup##
+			##processLayoutName TYPE_PAGE_ADD @TABLE.strDatasourceTable##
+			popupPagesLayoutNames["##TYPE_PAGE_ADD##"] = "##@processLayoutName_result##";
+##endif##
+##if @TABLE.bEditPopup##
+			##processLayoutName TYPE_PAGE_EDIT @TABLE.strDatasourceTable##
+			popupPagesLayoutNames["##TYPE_PAGE_EDIT##"] = "##@processLayoutName_result##";
+##endif##
+##if @TABLE.bViewPopup##
+			##processLayoutName TYPE_PAGE_VIEW @TABLE.strDatasourceTable##
+			popupPagesLayoutNames["##TYPE_PAGE_VIEW##"] = "##@processLayoutName_result##";
+##endif##
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".popupPagesLayoutNames"] = popupPagesLayoutNames;
+##if @TABLE.bListAJAX && @TABLE.strDataSourceTable!="admin_members" && @TABLE.strDataSourceTable!="admin_rights"##
+			tdataArray["##@TABLE.strShortTableName##"][".listAjax"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".listAjax"] = false;
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".listAjax"] = false;
+##if @TABLE.bLogModifications##
+			tdataArray["##@TABLE.strShortTableName##"][".audit"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".audit"] = false;
+##endif##
+##if @TABLE.bBlocking##
+			tdataArray["##@TABLE.strShortTableName##"][".locking"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".locking"] = false;
+##endif##
+			pagesArray["##@TABLE.strShortTableName##"] = tdataArray["##@TABLE.strShortTableName##"][".pages"];
+			if(XVar.Pack(pagesArray["##@TABLE.strShortTableName##"].KeyExists(Constants.PAGE_EDIT)))
+			{
+				tdataArray["##@TABLE.strShortTableName##"][".edit"] = true;
+				tdataArray["##@TABLE.strShortTableName##"][".afterEditAction"] = ##@TABLE.nAfterEditAction##;
+				tdataArray["##@TABLE.strShortTableName##"][".closePopupAfterEdit"] = ##@TABLE.bClosePopupAfterEdit##;
+				tdataArray["##@TABLE.strShortTableName##"][".afterEditActionDetTable"] = "##@TABLE.strAfterEditDetail s##";
+			}
+			if(XVar.Pack(pagesArray["##@TABLE.strShortTableName##"].KeyExists(Constants.PAGE_ADD)))
+			{
+				tdataArray["##@TABLE.strShortTableName##"][".add"] = true;
+				tdataArray["##@TABLE.strShortTableName##"][".afterAddAction"] = ##@TABLE.nAfterAddAction##;
+				tdataArray["##@TABLE.strShortTableName##"][".closePopupAfterAdd"] = ##@TABLE.bClosePopupAfterAdd##;
+				tdataArray["##@TABLE.strShortTableName##"][".afterAddActionDetTable"] = "##@TABLE.strAfterAddDetail s##";
+			}
+			if(XVar.Pack(pagesArray["##@TABLE.strShortTableName##"].KeyExists(Constants.PAGE_LIST)))
+			{
+				tdataArray["##@TABLE.strShortTableName##"][".list"] = true;
+			}
+##if exists(@TABLE.bEnableUpdateSelected)##
+			tdataArray["##@TABLE.strShortTableName##"][".updateSelected"] = true;
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".strSortControlSettingsJSON"] = "##@TABLE.strSortControlSettingsJSON s##";
+##if @TABLE.strClickActionSettingsJSON##
+			tdataArray["##@TABLE.strShortTableName##"][".strClickActionJSON"] = "##@TABLE.strClickActionSettingsJSON s##";
+##endif##
+			if(XVar.Pack(pagesArray["##@TABLE.strShortTableName##"].KeyExists(Constants.PAGE_VIEW)))
+			{
+				tdataArray["##@TABLE.strShortTableName##"][".view"] = true;
+			}
+			if(XVar.Pack(pagesArray["##@TABLE.strShortTableName##"].KeyExists(Constants.PAGE_IMPORT)))
+			{
+				tdataArray["##@TABLE.strShortTableName##"][".import"] = true;
+			}
+			if(XVar.Pack(pagesArray["##@TABLE.strShortTableName##"].KeyExists(Constants.PAGE_EXPORT)))
+			{
+				tdataArray["##@TABLE.strShortTableName##"][".exportTo"] = true;
+			}
+			if(XVar.Pack(pagesArray["##@TABLE.strShortTableName##"].KeyExists(Constants.PAGE_PRINT)))
+			{
+				tdataArray["##@TABLE.strShortTableName##"][".printFriendly"] = true;
+			}
+			tdataArray["##@TABLE.strShortTableName##"][".showSimpleSearchOptions"] = true;
+			tdataArray["##@TABLE.strShortTableName##"][".allowShowHideFields"] = true;
+			tdataArray["##@TABLE.strShortTableName##"][".allowFieldsReordering"] = true;
+##if @TABLE.bSaveSearches##
+			tdataArray["##@TABLE.strShortTableName##"][".searchSaving"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".searchSaving"] = false;
+##endif##
+##if @TABLE.bSearchSuggest##
+			tdataArray["##@TABLE.strShortTableName##"][".isUseAjaxSuggest"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".isUseAjaxSuggest"] = false;
+##endif##
+##if @TABLE.nType==titTABLE || @TABLE.nType==titVIEW##
+##if @TABLE.bRowHighlite##
+			tdataArray["##@TABLE.strShortTableName##"][".rowHighlite"] = true;
+##endif##
+##endif##
+##set @tableHasEventAjax=0##
+##set @tableHasButtons=0##
+##foreach @BUILDER.controlHandlers as @c filter @c.strEventID=="EVENT_BUTTON" || @c.strEventID=="EVENT_AJAX" || @c.strEventID=="EVENT_FIELD"##
+##if Fields[editFormats[arrFieldEventLinks[strHandlerID == @c.strName]].len].len##
+##set @tableHasButtons=1##
+##endif##
+##if Fields[viewFormats[arrFieldEventLinks[strHandlerID == @c.strName]].len].len##
+##set @tableHasButtons=1##
+##endif##
+##if @TABLE.controlLinks[id==@c.strName].len##
+##set @tableHasButtons=1##
+##if @c.strEventID=="EVENT_AJAX"##
+##set @tableHasEventAjax=1##
+##endif##
+##else##
+##foreach @TABLE.arrMasterTables as @m##
+##if @BUILDER.tables{@m.strMasterTable}.controlLinks[id==@c.strName && page==PAGE_MASTER_INFO_LIST].len##
+##set @tableHasButtons=1##
+##endif##
+##endfor##
+##endif##
+##endfor##
+##if @TABLE.bFlexibleSearch##
+			tdataArray["##@TABLE.strShortTableName##"][".flexibleSearch"] = true;
+##endif##
+##if @tableHasEventAjax##
+			tdataArray["##@TABLE.strShortTableName##"][".ajaxCodeSnippetAdded"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".ajaxCodeSnippetAdded"] = false;
+##endif##
+##if @tableHasButtons##
+			tdataArray["##@TABLE.strShortTableName##"][".buttonsAdded"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".buttonsAdded"] = false;
+##endif##
+##if @tableHasButtons || @TABLE.arrEventHandlers[strEventID == "EVENT_JS_ONLOAD"].len##
+			tdataArray["##@TABLE.strShortTableName##"][".addPageEvents"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".addPageEvents"] = false;
+##endif##
+##if Fields[editFormats[useTimePicker].len].len##
+			tdataArray["##@TABLE.strShortTableName##"][".isUseTimeForSearch"] = true;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".isUseTimeForSearch"] = false;
+##endif##
+##if @TABLE.arrFieldObj[viewFormats[strViewFormat==FORMAT_MAP].len].len##
+			tdataArray["##@TABLE.strShortTableName##"][".isUseFieldsMaps"] = true;
+##endif##
+##if @TABLE.strChildColor.len##
+			tdataArray["##@TABLE.strShortTableName##"][".badgeColor"] = "##@TABLE.strChildColor##";
+##endif##
+##if 1=0##
+##if @TABLE.nLinksOnList != dlSINGLE##
+			tdataArray["##@TABLE.strShortTableName##"][".detailsLinksOnList"] = "##@TABLE.nLinksOnList##";
+##endif##
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".allSearchFields"] = SettingsMap.GetArray();
+			tdataArray["##@TABLE.strShortTableName##"][".filterFields"] = SettingsMap.GetArray();
+			tdataArray["##@TABLE.strShortTableName##"][".requiredSearchFields"] = SettingsMap.GetArray();
+##foreach Fields as @f filter @f.bGoogleLikeSearch && !IsBinaryField(@f)##
+##if @first##
+			tdataArray["##@TABLE.strShortTableName##"][".googleLikeFields"] = SettingsMap.GetArray();
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".googleLikeFields"].Add("##@f.strName s##");
+##endfor##
+##if IsTable(@TABLE)##
+			tdataArray["##@TABLE.strShortTableName##"][".tableType"] = "list";
+##elseif IsReport(@TABLE)##
+			tdataArray["##@TABLE.strShortTableName##"][".tableType"] = "report";
+##elseif IsChart(@TABLE)##
+			tdataArray["##@TABLE.strShortTableName##"][".tableType"] = "chart";
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".printerPageOrientation"] = ##@TABLE.m_nPrinterPageOrientation##;
+##if !@TABLE.bPrinterPageFitToPage##
+			tdataArray["##@TABLE.strShortTableName##"][".isPrinterPageFitToPage"] = 0;
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".nPrinterPageScale"] = ##@TABLE.nPrinterPageScale##;
+			tdataArray["##@TABLE.strShortTableName##"][".nPrinterSplitRecords"] = ##@TABLE.nPrintRecordsPerPage##;
+			tdataArray["##@TABLE.strShortTableName##"][".nPrinterPDFSplitRecords"] = ##@TABLE.nPrintPDFRecordsPerPage##;
+##if @TABLE.GeocodingSettings.bGeocodingEnabled != 0##
+			tdataArray["##@TABLE.strShortTableName##"][".geocodingEnabled"] = true;
+			tdataArray["##@TABLE.strShortTableName##"][".geocodingData"] = SettingsMap.GetArray();
+			tdataArray["##@TABLE.strShortTableName##"][".geocodingData"]["latField"] = "##@TABLE.GeocodingSettings.strLatField##";
+			tdataArray["##@TABLE.strShortTableName##"][".geocodingData"]["lngField"] = "##@TABLE.GeocodingSettings.strLonField##";
+			tdataArray["##@TABLE.strShortTableName##"][".geocodingData"]["addressFields"] = SettingsMap.GetArray();
+##foreach @TABLE.GeocodingSettings.arrAddressFields as @af##
+			tdataArray["##@TABLE.strShortTableName##"][".geocodingData"]["addressFields"].Add("##@af##");
+##endfor##
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".geocodingEnabled"] = false;
+##endif##
+##if IsReport(@TABLE)##
+##if @TABLE.bReportCrossTab##
+			tdataArray["##@TABLE.strShortTableName##"][".crossTabReport"] = true;
+##else##
+##if @TABLE.nReportLayout != REPORT_STEPPED##
+			tdataArray["##@TABLE.strShortTableName##"][".printReportLayout"] = ##@TABLE.nReportLayout##;
+##endif##
+##if @TABLE.arrReportGroupFields.len##
+			tdataArray["##@TABLE.strShortTableName##"][".reportPrintPartitionType"] = 1;
+			tdataArray["##@TABLE.strShortTableName##"][".reportPrintGroupsPerPage"] = ##@TABLE.nReportPrintGroupsPerPage##;
+			tdataArray["##@TABLE.strShortTableName##"][".reportPrintPDFGroupsPerPage"] = ##@TABLE.nReportPrintPDFGroupsPerPage##;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".reportPrintPartitionType"] = 1;
+			tdataArray["##@TABLE.strShortTableName##"][".reportPrintGroupsPerPage"] = ##@TABLE.nPrintRecordsPerPage##;
+			tdataArray["##@TABLE.strShortTableName##"][".reportPrintPDFGroupsPerPage"] = ##@TABLE.nPrintPDFRecordsPerPage##;
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".lowGroup"] = ##@TABLE.arrReportGroupFields.len##;
+##endif##
+##if @TABLE.arrReportGroupFields.len##
+			tdataArray["##@TABLE.strShortTableName##"][".reportGroupFields"] = true;
+			tdataArray["##@TABLE.strShortTableName##"][".pageSize"] = ##@TABLE.nNumberOfGroups##;
+##if @TABLE.arrReportGroupFields[bShowGroupSummary].len##
+			tdataArray["##@TABLE.strShortTableName##"][".showGroupSummaryCount"] = true;
+##endif##
+			reportGroupFields = SettingsMap.GetArray();
+##foreach @TABLE.arrReportGroupFields as @g##
+			rgroupField = SettingsMap.GetArray();
+			rgroupField["strGroupField"] = "##@g.strGroupField s##";
+			rgroupField["groupInterval"] = ##@g.nGroupInterval##;
+			rgroupField["groupOrder"] = ##@index##;
+			rgroupField["showGroupSummary"] = "##if @first || @last##1##else####@g.bShowGroupSummary####endif##";
+			rgroupField["crossTabAxis"] = "##@g.nCrossTabAxis##";
+			reportGroupFields.Add(rgroupField);
+##endfor##
+			tdataArray["##@TABLE.strShortTableName##"][".reportGroupFieldsData"] = reportGroupFields;
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".pageSize"] = ##@TABLE.nNumberOfRecords##;
+##endif##
+##if @TABLE.bReportHorizontalSummary##
+			tdataArray["##@TABLE.strShortTableName##"][".reportHorizontalSummary"] = true;
+##endif##
+##if @TABLE.arrFieldObj[bSum || bAvg || bMin || bMax].len##
+			tdataArray["##@TABLE.strShortTableName##"][".isExistTotalFields"] = true;
+##endif##
+##if @TABLE.bReportVerticalSummary##
+			tdataArray["##@TABLE.strShortTableName##"][".reportVerticalSummary"] = true;
+##endif##
+##if @TABLE.bReportPageSummary##
+			tdataArray["##@TABLE.strShortTableName##"][".reportPageSummary"] = true;
+##endif##
+##if @TABLE.bReportGlobalSummary##
+			tdataArray["##@TABLE.strShortTableName##"][".reportGlobalSummary"] = true;
+##endif##
+##if @TABLE.bReportShowDetails || !@TABLE.arrReportGroupFields.len##
+			tdataArray["##@TABLE.strShortTableName##"][".repShowDet"] = true;
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".reportLayout"] = ##@TABLE.nReportLayout##;
+##endif##
+##if IsChart(@TABLE)##
+			tdataArray["##@TABLE.strShortTableName##"][".chartType"] = "##@TABLE.strChartType##";
+##endif##
+##if @TABLE.printGridLayout != gltHORIZONTAL##
+			tdataArray["##@TABLE.strShortTableName##"][".printGridLayout"] = ##@TABLE.printGridLayout##;
+##endif##
+##if @TABLE.listGridLayout != gltHORIZONTAL##
+			tdataArray["##@TABLE.strShortTableName##"][".listGridLayout"] = ##@TABLE.listGridLayout##;
+##endif##
+##if @TABLE.displayLoading##
+			tdataArray["##@TABLE.strShortTableName##"][".isDisplayLoading"] = true;
+##endif##
+##if @TABLE.resizeColumns && (@TABLE.listGridLayout == gltHORIZONTAL || @TABLE.listGridLayout == gltFLEXIBLE) && @TABLE.strDataSourceTable!="admin_members" && @TABLE.strDataSourceTable!="admin_rights"##
+			tdataArray["##@TABLE.strShortTableName##"][".isResizeColumns"] = true;
+##endif##
+##if @TABLE.bRequireSearchFilter##
+			tdataArray["##@TABLE.strShortTableName##"][".searchIsRequiredForFilters"] = true;
+##endif##
+##if @TABLE.bNoRecordsFirstPage##
+			tdataArray["##@TABLE.strShortTableName##"][".noRecordsFirstPage"] = true;
+##endif##
+##if @TABLE.nType==titTABLE || @TABLE.nType==titVIEW##
+			tdataArray["##@TABLE.strShortTableName##"][".pageSize"] = ##@TABLE.nNumberOfRecords s##;
+##if @TABLE.bWarnLeavingPages##
+			tdataArray["##@TABLE.strShortTableName##"][".warnLeavingPages"] = true;
+##endif##
+##if @TABLE.bHideEmptyFieldsOnView##
+			tdataArray["##@TABLE.strShortTableName##"][".hideEmptyFieldsOnView"] = true;
+##endif##
+##endif##
+			tstrOrderBy = "##@TABLE.strOrderBy s##";
+			if(MVCFunctions.strlen(tstrOrderBy) && MVCFunctions.strtolower(MVCFunctions.substr(tstrOrderBy, new XVar(0), new XVar(8))) != "order by")
+			{
+				tstrOrderBy = MVCFunctions.Concat("order by ", tstrOrderBy);
+			}
+			tdataArray["##@TABLE.strShortTableName##"][".strOrderBy"] = tstrOrderBy;
+			tdataArray["##@TABLE.strShortTableName##"][".orderindexes"] = SettingsMap.GetArray();
+##if @TABLE.nType==titTABLE || @TABLE.nType==titVIEW || @TABLE.nType==titREPORT || @TABLE.nType==titCHART##
+##foreach @TABLE.arrOrderIndexes as @o order @o.nOrderIndex##
+##if @o.nIndex##
+			tdataArray["##@TABLE.strShortTableName##"][".orderindexes"].Add(new XVar(0, ##@o.nIndex##, 1, (XVar.Pack(##@o.bAsc##) ? XVar.Pack("ASC") : XVar.Pack("DESC")), 2, "##@o.strOrderField s##"));
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".orderindexes"].Add(new XVar(0, 0, 1, "", 2, "##@o.strOrderField s##"));
+##endif##
+##endfor##
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".sqlHead"] = "##@TABLE.sqlHead ls##";
+			tdataArray["##@TABLE.strShortTableName##"][".sqlFrom"] = "##@TABLE.sqlFrom ls##";
+			tdataArray["##@TABLE.strShortTableName##"][".sqlWhereExpr"] = "##@TABLE.sqlWhere ls##";
+			tdataArray["##@TABLE.strShortTableName##"][".sqlTail"] = "##@TABLE.sqlTail ls##";
+##if @TABLE.arrWhereTabs.len##
+			arrGridTabs = SettingsMap.GetArray();
+##foreach @TABLE.arrWhereTabs as @tab##
+			arrGridTabs.Add(new XVar("tabId", "##@tab.strID s##", "name", "##@tab.strTitle.text s##", "nameType", "##@tab.strTitle.nameType##", "where", "##@tab.strWhere s##", "showRowCount", ##iif(@tab.bShowRowCount,1,0)##, "hideEmpty", ##iif(@tab.bHideEmpty,1,0)##));
+##endfor##
+			tdataArray["##@TABLE.strShortTableName##"][".arrGridTabs"] = arrGridTabs;
+##endif##
+##if AddPageMultistep(@TABLE)##
+			tdataArray["##@TABLE.strShortTableName##"][".addMultistep"] = true;
+##endif##
+##if EditPageMultistep(@TABLE)##
+			tdataArray["##@TABLE.strShortTableName##"][".editMultistep"] = true;
+##endif##
+##if ViewPageMultistep(@TABLE)##
+			tdataArray["##@TABLE.strShortTableName##"][".viewMultistep"] = true;
+##endif##
+##if RegisterPageMultistep(@TABLE)##
+			tdataArray["##@TABLE.strShortTableName##"][".registerMultistep"] = true;
+##endif##
+##if @TABLE.arrRecsPerPage.len##
+			arrRPP = SettingsMap.GetArray();
+##foreach @TABLE.arrRecsPerPage as @r##
+			arrRPP.Add(##@r##);
+##endfor##
+			tdataArray["##@TABLE.strShortTableName##"][".arrRecsPerPage"] = arrRPP;
+##endif##
+##if @TABLE.arrGroupsPerPage.len##
+			arrGPP = SettingsMap.GetArray();
+##foreach @TABLE.arrGroupsPerPage as @g##
+			arrGPP.Add(##@g##);
+##endfor##
+			tdataArray["##@TABLE.strShortTableName##"][".arrGroupsPerPage"] = arrGPP;
+##endif##
+##if @TABLE.bHighlightSearchResults##
+			tdataArray["##@TABLE.strShortTableName##"][".highlightSearchResults"] = true;
+##endif##
+			tableKeysArray["##@TABLE.strShortTableName##"] = SettingsMap.GetArray();
+##foreach @TABLE.arrKeyFields as @k##
+			tableKeysArray["##@TABLE.strShortTableName##"].Add("##@k s##");
+##endfor##
+			tdataArray["##@TABLE.strShortTableName##"][".Keys"] = tableKeysArray["##@TABLE.strShortTableName##"];
+			tdataArray["##@TABLE.strShortTableName##"][".hideMobileList"] = SettingsMap.GetArray();
+##repeat 5 @n##
+##foreach Fields as @f filter @f.arrListOfDevicesWithHiddenFields[@element == @n]##
+##if @first##
+			tdataArray["##@TABLE.strShortTableName##"][".hideMobileList"][##eval @n##] = SettingsMap.GetArray();
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".hideMobileList"][##eval @n##]["##@f.strName s##"] = true;
+##endfor##
+##endrepeat##
+##foreach Fields as @f##
+			fdata = SettingsMap.GetArray();
+			fdata["Index"] = ##@index##;
+			fdata["strName"] = "##@f.strName s##";
+			fdata["GoodName"] = "##@f.strName g##";
+			fdata["ownerTable"] = "##@f.strTable s##";
+			fdata["Label"] = ##label @TABLE.strDataSourceTable @f.strName##;
+			fdata["FieldType"] = ##@f.nDataType##;
+##if IsReport(@TABLE)##
+##if @f.bMin##
+			fdata["isTotalMin"] = true;
+##endif##
+##if @f.bAvg##
+			fdata["isTotalAvg"] = true;
+##endif##
+##if @f.bMax##
+			fdata["isTotalMax"] = true;
+##endif##
+##if @f.bSum##
+			fdata["isTotalSum"] = true;
+##endif##
+##endif##
+##if @f.bAutoInc##
+			fdata["AutoInc"] = true;
+##endif##
+##if @f.strOraSequenceName##
+			fdata["OraSequenceName"] = "##@f.strOraSequenceName##";
+##endif##
+##if !@BUILDER.arrEncryptInfo{@TABLE.strConnectionID}.empty##
+##if @BUILDER.arrEncryptInfo{@TABLE.strConnectionID}.nEncryptMode != 0##
+##if @BUILDER.bCreateLoginPage && @BUILDER.m_nLoginMethod == SECURITY_TABLE && @TABLE.strDataSourceTable=="admin_users" && @BUILDER.strLoginDataSource.len##
+##foreach @BUILDER.Tables{@BUILDER.strLoginDataSource}.m_arrFieldObj as @g##
+##if @g.strField==@f.strField && (@g.m_bEncrypted || @f.m_bEncrypted)##
+			fdata["bIsEncrypted"] = true;
+##endif##
+##endfor##
+##else##
+##if @f.m_bEncrypted##
+			fdata["bIsEncrypted"] = true;
+##endif##
+##endif##
+##endif##
+##endif##
+##if @f.strField##
+			fdata["strField"] = "##@f.strField s##";
+##endif##
+##if @f.strSQLExpression##
+			fdata["isSQLExpression"] = true;
+			fdata["FullName"] = "##@f.strSQLExpression ls##";
+##else##
+			fdata["FullName"] = "##@f.strName s##";
+##endif##
+##if @f.bDeleteFile##
+			fdata["DeleteAssociatedFile"] = true;
+##endif##
+##if @f.bCompatibilityMode##
+			fdata["CompatibilityMode"] = true;
+##endif##
+##if @f.bUploadCodeExpression##
+			fdata["UploadCodeExpression"] = true;
+##else##
+##if @f.strUploadFolder##
+			fdata["UploadFolder"] = "##@f.strUploadFolder s##";
+##endif##
+##endif##
+			fdata["ViewFormats"] = SettingsMap.GetArray();
+##foreach @f.viewFormats as @vf##
+			vdata = new XVar("ViewFormat", "##@vf.strViewFormat s##");
+##if @vf.strFilename##
+			vdata["Filename"] = "##@vf.strFilename s##";
+##endif##
+##if @vf.strhlPrefix##
+			vdata["LinkPrefix"] = "##@vf.strhlPrefix s##";
+##endif##
+##if @vf.strViewFormat==FORMAT_FILE_IMAGE || @vf.strViewFormat==FORMAT_DATABASE_IMAGE##
+##if @vf.bShowThumbnail##
+			vdata["ShowThumbnail"] = true;
+			vdata["ThumbWidth"] = ##@vf.nThumbWidth##;
+			vdata["ThumbHeight"] = ##@vf.nThumbHeight##;
+##endif##
+##if @vf.m_bShowListOfThumbnails##
+			vdata["ShowListOfThumbnails"] = true;
+##endif##
+			vdata["ImageWidth"] = ##@vf.nImageWidth##;
+			vdata["ImageHeight"] = ##@vf.nImageHeight##;
+##endif##
+##if @vf.strViewFormat==FORMAT_FILE##
+##if @vf.bShowThumbnail##
+			vdata["ShowThumbnail"] = true;
+##endif##
+##if @vf.bShowFileSize##
+			vdata["ShowFileSize"] = true;
+##endif##
+##if @vf.bShowIcon##
+			vdata["ShowIcon"] = true;
+##endif##
+##if @vf.bShowCustomExpr##
+			vdata["ShowCustomExpr"] = true;
+##endif##
+##endif##
+##if @vf.strViewFormat==FORMAT_HYPERLINK##
+##if @vf.bhlNewWindow##
+			vdata["hlNewWindow"] = true;
+##endif##
+			vdata["hlType"] = ##@vf.nhlDisplay##;
+			vdata["hlLinkWordNameType"] = "##@vf.linkWord.nameType s##";
+			vdata["hlLinkWordText"] = "##@vf.linkWord.text s##";
+			vdata["hlTitleField"] = "##@vf.strhlParam s##";
+##endif##
+##if @vf.strFilename##
+			vdata["strFilename"] = "##@vf.strFilename s##";
+##endif##
+##if @vf.strViewFormat==FORMAT_NUMBER##
+			vdata["DecimalDigits"] = ##@vf.nDecimalDigits##;
+##endif##
+##if @vf.strViewFormat==FORMAT_AUDIO && @vf.bFieldContainsFileURL##
+			vdata["fieldIsVideoUrl"] = true;
+##endif##
+##if @vf.strViewFormat==FORMAT_FILE_IMAGE && @vf.bImageURL##
+			vdata["fieldIsImageUrl"] = true;
+##endif##
+##if @vf.strViewFormat==FORMAT_AUDIO || @vf.strViewFormat==FORMAT_DATABASE_AUDIO##
+			vdata["audioTitleField"] = "##@vf.strTitleField s##";
+##endif##
+##if @vf.strViewFormat==FORMAT_VIDEO || @vf.strViewFormat==FORMAT_DATABASE_VIDEO##
+			vdata["videoTitleField"] = "##@vf.strTitleField s##";
+##if @vf.bFieldContainsFileURL##
+			vdata["fieldIsVideoUrl"] = true;
+##endif##
+##if @vf.nVideoHeight##
+			vdata["videoHeight"] = ##@vf.nVideoHeight##;
+##else##
+			vdata["videoHeight"] = 200;
+##endif##
+##if @vf.bRewindEnabled##
+			vdata["RewindEnabled"] = true;
+##endif##
+##if @vf.nVideoWidth##
+			vdata["videoWidth"] = ##@vf.nVideoWidth##;
+##else##
+			vdata["videoWidth"] = 300;
+##endif##
+##endif##
+##if @vf.strViewFormat==FORMAT_MAP##
+			vdata["mapData"] = SettingsMap.GetArray();
+			vdata["mapData"]["width"] = ##@vf.nMapWidth##;
+			vdata["mapData"]["height"] = ##@vf.nMapHeight##;
+			vdata["mapData"]["address"] = "##@vf.sAddressField s##";
+			vdata["mapData"]["lat"] = "##@vf.sLatField s##";
+			vdata["mapData"]["lng"] = "##@vf.sLonField s##";
+			vdata["mapData"]["desc"] = "##@vf.sMapDescription s##";
+			vdata["mapData"]["mapIcon"] = "##@vf.strMarkerIcon s##";
+			vdata["mapData"]["isMapIconCustom"] = ##@vf.bUseMarkerIconExpr s##;
+##if @vf.sMapZoom##
+			vdata["mapData"]["zoom"] = ##@vf.sMapZoom##;
+##endif##
+##endif##
+##if NeedEncode(@f, @vf.page)##
+			vdata["NeedEncode"] = true;
+##endif##
+##if @vf.arrFieldEventLinks##
+			eventsData = SettingsMap.GetArray();
+##foreach @vf.arrFieldEventLinks as @evData##
+			eventsData.Add(new XVar("name", "##@evData.strHandlerID j##", "type", "##@evData.strEventName s##"));
+##endfor##
+			vdata["fieldViewEvents"] = eventsData;
+##endif##
+			fdata["ViewFormats"]["##@vf.page##"] = vdata;
+##endfor##
+			fdata["EditFormats"] = SettingsMap.GetArray();
+##foreach @f.editFormats as @ef##
+			edata = new XVar("EditFormat", "##@ef.strEditFormat s##");
+##if @ef.bShowTime##
+			edata["ShowTime"] = true;
+##endif##
+##if @ef.strEditMask##
+			edata["strEditMask"] = "##@ef.strEditMask##";
+##endif##
+##if @ef.arrFieldEventLinks##
+			eventsData = SettingsMap.GetArray();
+##foreach @ef.arrFieldEventLinks as @evData##
+			eventsData.Add(new XVar("name", "##@evData.strHandlerID j##", "type", "##@evData.strEventName s##"));
+##endfor##
+			edata["fieldEvents"] = eventsData;
+##endif##
+##if @ef.strEditFormat==EDIT_FORMAT_LOOKUP_WIZARD || @ef.strEditFormat==EDIT_FORMAT_RADIO##
+##if @ef.pLookupObj.nLookupType==LT_LISTOFVALUES##
+			edata["LookupType"] = ##eval LT_LISTOFVALUES##;
+##else##
+##if IsLTQuery(@ef)##
+			edata["LookupType"] = ##eval LT_QUERY##;
+			edata["LookupTable"] = "##@BUILDER.tables{@ef.pLookupObj.strTable}.strDataSourceTable s##";
+##else##
+			edata["LookupType"] = ##eval LT_LOOKUPTABLE##;
+			edata["LookupTable"] = "##@ef.pLookupObj.strTable s##";
+			edata["LookupConnId"] = "##@ef.pLookupObj.m_strConnectionID s##";
+##endif##
+##endif##
+##if @ef.pLookupObj.nControlType==LCT_AJAX && @ef.pLookupObj.bAllowFreeInput##
+			edata["freeInput"] = true;
+##endif##
+			edata["autoCompleteFieldsOnEdit"] = ##@ef.pLookupObj.bAutofillEdit##;
+			edata["autoCompleteFields"] = SettingsMap.GetArray();
+##if @ef.pLookupObj.nControlType != LCT_CBLIST && !@ef.bAllowMultipleSelection##
+##foreach @ef.pLookupObj.arrLookupAutocompletionPairs as @a##
+			edata["autoCompleteFields"].Add(new XVar("masterF", "##@a.strMasterField s##", "lookupF", "##@a.strLookupField s##"));
+##endfor##
+##endif##
+			edata["LCType"] = ##@ef.pLookupObj.nControlType##;
+##if @ef.pLookupObj.horizontalLayout##
+			edata["HorizontalLookup"] = true;
+##endif##
+##if IsLTTable(@ef) || IsLTQuery(@ef)##
+##if @ef.pLookupObj.bUnique##
+			edata["LookupUnique"] = true;
+##endif##
+			edata["LinkField"] = "##@ef.pLookupObj.strLinkField s##";
+			edata["LinkFieldType"] = ##@ef.pLookupObj.nLinkFieldType##;
+			edata["DisplayField"] = "##@ef.pLookupObj.strDisplayField sl##";
+##if @ef.pLookupObj.strWhere##
+##if iscodeexpression(@ef.pLookupObj.strWhere)##
+			edata["LookupWhereCode"] = true;
+##else##
+			edata["LookupWhere"] = "##@ef.pLookupObj.strWhere s##";
+##endif##
+##endif##
+##if @ef.pLookupObj.bCustomDisplay##
+			edata["CustomDisplay"] = "true";
+##endif##
+			edata["LookupOrderBy"] = "##@ef.pLookupObj.strOrderBy s##";
+##if @ef.pLookupObj.bDesc##
+			edata["LookupDesc"] = true;
+##endif##
+##if @ef.pLookupObj.bUseCategory##
+			edata["UseCategory"] = true;
+			edata["categoryFields"] = SettingsMap.GetArray();
+##foreach @ef.pLookupObj.arrDependentFields as @df##
+			edata["categoryFields"].Add(new XVar("main", "##@df.strMasterField s##", "lookup", "##@df.strLookupField s##"));
+##endfor##
+##endif##
+##if @ef.pLookupObj.bAllowToAdd##
+			edata["AllowToAdd"] = true;
+##endif##
+##if !@BUILDER.Tables{@ef.pLookupObj.strTable}##
+			edata["SimpleAdd"] = true;
+##endif##
+##foreach Fields as @d##
+##foreach @d.editFormats as @ed filter @ed.strEditFormat==EDIT_FORMAT_LOOKUP_WIZARD
+			&& (IsLTTable(@ed) || IsLTQuery(@ed))
+			&& @ed.pLookupObj.bUseCategory
+			&& @ed.pLookupObj.arrDependentFields[strMasterField == @f.strName].len##
+##if @first##
+			edata["DependentLookups"] = SettingsMap.GetArray();
+##endif##
+			edata["DependentLookups"].Add("##@d.strName s##");
+##endfor##
+##endfor##
+##endif##
+##if @ef.pLookupObj.nLookupType==LT_LISTOFVALUES##
+			edata["LookupValues"] = SettingsMap.GetArray();
+##foreach @ef.pLookupObj.arrListOfValues as @val##
+			edata["LookupValues"].Add("##@val s##");
+##endfor##
+##endif##
+##if @ef.bAllowMultipleSelection || @ef.pLookupObj.nControlType == LCT_CBLIST##
+			edata["Multiselect"] = true;
+##endif##
+##if @ef.pLookupObj.nControlType == LCT_DROPDOWN##
+			edata["SelectSize"] = ##@ef.nSelectSize##;
+##endif##
+##endif##
+##if @ef.bRequired##
+			edata["IsRequired"] = true;
+##endif##
+##if @ef.strEditFormat==EDIT_FORMAT_TEXT_AREA && @ef.bUseRTE##
+			edata["UseRTE"] = true;
+##endif##
+##if @ef.bTimestamp##
+			edata["UseTimestamp"] = true;
+##endif##
+##if @ef.allowedFileTypes.len##
+##foreach @ef.allowedFileTypes as @ft##
+##if @first##
+			edata["acceptFileTypes"] = "##@ft s##";
+##else##
+			edata["acceptFileTypes"] = MVCFunctions.Concat(edata["acceptFileTypes"], "|##@ft s##");
+##endif##
+##endfor##
+			edata["acceptFileTypes"] = MVCFunctions.Concat("(", edata["acceptFileTypes"], ")$");
+##else##
+			edata["acceptFileTypes"] = ".+$";
+##endif##
+##if @ef.MaxNumberOfFiles || @ef.MaxNumberOfFiles == 0##
+			edata["maxNumberOfFiles"] = ##@ef.MaxNumberOfFiles##;
+##endif##
+##if @ef.MaxFileSize##
+			edata["maxFileSize"] = ##@ef.MaxFileSize##;
+##endif##
+##if @ef.TotalFilesSize##
+			edata["maxTotalFilesSize"] = ##@ef.TotalFilesSize##;
+##endif##
+##if @ef.strEditFormat==EDIT_FORMAT_DATE##
+			edata["DateEditType"] = ##@ef.nDateEditType##;
+			edata["InitialYearFactor"] = ##@ef.nInitialYearFactor##;
+			edata["LastYearFactor"] = ##@ef.nLastYearFactor##;
+##endif##
+##if @ef.strEditFormat==EDIT_FORMAT_TEXT_AREA##
+##if @ef.nRows>0##
+			edata["nRows"] = ##@ef.nRows##;
+##endif##
+##if @ef.nCols>0##
+			edata["nCols"] = ##@ef.nCols##;
+##endif##
+##endif##
+##if @ef.strEditFormat==EDIT_FORMAT_TEXT_FIELD##
+##if @ef.nHTML5InputType == HTML5_NUMBER##
+			edata["HTML5InuptType"] = "number";
+##elseif @ef.nHTML5InputType == HTML5_TEL##
+			edata["HTML5InuptType"] = "tel";
+##elseif @ef.nHTML5InputType == HTML5_EMAIL##
+			edata["HTML5InuptType"] = "email";
+##elseif @ef.nHTML5InputType == HTML5_URL##
+			edata["HTML5InuptType"] = "url";
+##else##
+			edata["HTML5InuptType"] = "text";
+##endif##
+##endif##
+##if @ef.strEditFormat==EDIT_FORMAT_TEXT_FIELD || @ef.strEditFormat==EDIT_FORMAT_PASSWORD || @ef.strEditFormat==EDIT_FORMAT_TIME##
+			edata["EditParams"] = "";
+##if @ef.nMaxLength>0##
+			edata["EditParams"] = MVCFunctions.Concat(edata["EditParams"], " maxlength=##@ef.nMaxLength##");
+##endif##
+##endif##
+##if @ef.nSize>0##
+			edata["controlWidth"] = ##@ef.nSize##;
+##endif##
+			edata["validateAs"] = SettingsMap.GetArray();
+			edata["validateAs"]["basicValidate"] = SettingsMap.GetArray();
+			edata["validateAs"]["customMessages"] = SettingsMap.GetArray();
+##if NeedValidation(@f, @ef.page)##
+##if @ef.strValidateAs && (@ef.strEditFormat==EDIT_FORMAT_TEXT_FIELD || @ef.strEditFormat==EDIT_FORMAT_TIME || @ef.strEditFormat==EDIT_FORMAT_PASSWORD)##
+			edata["validateAs"]["basicValidate"].Add(CommonFunctions.getJsValidatorName(new XVar("##@ef.strValidateAs##")));
+##if @ef.strValidateAs==VALIDATE_AS_REGEXP##
+			edata["validateAs"]["regExp"] = "##@ef.strRegex s##";
+			edata["validateAs"]["customMessages"]["RegExp"] = new XVar("message", "##@ef.strRegexMessage.text 8s##", "messageType", "##@ef.strRegexMessage.nameType s##");
+##endif##
+##endif##
+##if @ef.bRequired && @ef.strEditFormat!=EDIT_FORMAT_READONLY##
+			edata["validateAs"]["basicValidate"].Add("IsRequired");
+##endif##
+##if DenyDyplicatesSet(@f, @ef.page)##
+			edata["validateAs"]["basicValidate"].Add("DenyDuplicated");
+			edata["validateAs"]["customMessages"]["DenyDuplicated"] = new XVar("message", "##@ef.strDenyMessage.text s##", "messageType", "##@ef.strDenyMessage.nameType s##");
+##endif##
+##endif##
+##if @ef.strAutoUpdateValue.len##
+			edata["autoUpdatable"] = true;
+##endif##
+##if @BUILDER.bCreateLoginPage && @BUILDER.Registration.bNewUserPage && @BUILDER.nLoginMethod==SECURITY_TABLE && @TABLE.strDataSourceTable == @BUILDER.strLoginDataSource##
+##if @f.strName == @BUILDER.strUserNameField || @f.strName == @BUILDER.strPasswordField##
+			if(MVCFunctions.count(edata["validateAs"]) && !MVCFunctions.in_array(new XVar("IsRequired"), edata["validateAs"]["basicValidate"]))
+			{
+				edata["validateAs"]["basicValidate"].Add("IsRequired");
+			}
+##endif##
+##if @BUILDER.Registration.strUserEmailField && @f.strName == @BUILDER.Registration.strUserEmailField##
+			if(MVCFunctions.count(edata["validateAs"]) && !MVCFunctions.in_array(new XVar("IsEmail"), edata["validateAs"]["basicValidate"]))
+			{
+				edata["validateAs"]["basicValidate"].Add("IsEmail");
+			}
+##endif##
+##endif##
+##if @ef.bCreateThumbnail##
+			edata["CreateThumbnail"] = true;
+			edata["StrThumbnail"] = "##@ef.strThumbnail s##";
+##if @ef.nThumbnailSize##
+			edata["ThumbnailSize"] = ##@ef.nThumbnailSize##;
+##else##
+			edata["ThumbnailSize"] = 150;
+##endif##
+##endif##
+##if @TABLE.nType==titTABLE || @TABLE.nType==titVIEW##
+##if @ef.bResizeOnUpload##
+			edata["ResizeImage"] = true;
+##if @ef.nNewSize##
+			edata["NewSize"] = ##@ef.nNewSize##;
+##else##
+			edata["NewSize"] = 600;
+##endif##
+##endif##
+##endif##
+##if @ef.strEditFormat==EDIT_FORMAT_TIME##
+##if @ef.timeConvention==0##
+			hours = 12;
+##else##
+			hours = 24;
+##endif##
+			edata["FormatTimeAttrs"] = new XVar("useTimePicker", ##@ef.useTimePicker##, "hours", hours, "minutes", ##@ef.minutes##, "showSeconds", ##@ef.showSeconds##);
+##endif##
+##if DenyDyplicatesSet(@f, @ef.page)##
+			edata["denyDuplicates"] = true;
+##endif##
+##if @f.bUpdateLatLng##
+			edata["UpdateLatLng"] = true;
+##endif##
+			fdata["EditFormats"]["##@ef.page##"] = edata;
+##endfor##
+##if @f.bSeparateEditAndView##
+			fdata["isSeparate"] = true;
+##else##
+			fdata["isSeparate"] = false;
+##endif##
+##if @f.bAbsolute##
+			fdata["Absolute"] = true;
+##endif##
+##if @f.strSearchOption##
+			fdata["defaultSearchOption"] = "##@f.strSearchOption s##";
+##endif##
+##if @f.searchOptions.len && !@f.bAllSearchOptionsSelected##
+			fdata["searchOptionsList"] = SettingsMap.GetArray();
+##foreach @f.searchOptions as @sOption##
+			fdata["searchOptionsList"].Add("##@sOption s##");
+##endfor##
+##elseif !@f.searchOptions.len && !@f.bAllSearchOptionsSelected##
+##if IsDateField(@f)##
+			fdata["searchOptionsList"] = new XVar(0, "Equals", 1, "More than", 2, "Less than", 3, "Between", 4, Constants.EMPTY_SEARCH, 5, Constants.NOT_EMPTY);
+##else##
+			fdata["searchOptionsList"] = new XVar(0, "Contains", 1, "Equals", 2, "Starts with", 3, "More than", 4, "Less than", 5, "Between", 6, "Empty", 7, Constants.NOT_EMPTY);
+##endif##
+##endif##
+			fdata["filterTotals"] = ##@f.pFilterFormatObj.nFilterTotals##;
+##if @f.pFilterFormatObj.strFilterFormat != IntervalSliderFilterFormat && @f.pFilterFormatObj.strFilterFormat != BooleanFilterFormat##
+			fdata["filterMultiSelect"] = ##@f.pFilterFormatObj.nFilterMultiselect##;
+##endif##
+##if @f.pFilterFormatObj.strFilterTotalsField##
+			fdata["filterTotalFields"] = "##@f.pFilterFormatObj.strFilterTotalsField s##";
+##endif##
+##if @f.pFilterFormatObj.strFilterFormat == IntervalistFilterFormat && !@f.pFilterFormatObj.arrFilterIntervals.len##
+			fdata["filterFormat"] = "##ValuesListFilterFormat##";
+##else##
+			fdata["filterFormat"] = "##@f.pFilterFormatObj.strFilterFormat s##";
+##endif##
+##if @f.pFilterFormatObj.bHideControl##
+			fdata["showCollapsed"] = true;
+##else##
+			fdata["showCollapsed"] = false;
+##endif##
+##if @f.pFilterFormatObj.strFilterFormat ==	ValuesListFilterFormat || @f.pFilterFormatObj.strFilterFormat == IntervalistFilterFormat && !@f.pFilterFormatObj.arrFilterIntervals.len##
+			fdata["sortValueType"] = ##@f.pFilterFormatObj.nSortValueType##;
+##if @f.pFilterFormatObj.bDescendingOrder##
+			fdata["descendingOrder"] = true;
+##endif##
+			fdata["numberOfVisibleItems"] = ##@f.pFilterFormatObj.nFirstVisibleItems##;
+##endif##
+##if @f.pFilterFormatObj.strFilterFormat == ValuesListFilterFormat##
+##if @f.m_strParentFilter##
+			fdata["parentFilterField"] = "##@f.m_strParentFilter s##";
+			fdata["parentFilters"] = SettingsMap.GetArray();
+			##writeParentFilters @f##
+##endif##
+##if @f.m_strChildFilter && Fields{@f.m_strChildFilter}##
+##if Fields{@f.m_strChildFilter}.m_strParentFilter == @f.strName##
+			fdata["dependentFilterName"] = "##@f.m_strChildFilter s##";
+			fdata["dependentFilters"] = SettingsMap.GetArray();
+			##writeDependantFilters @f##
+##endif##
+##endif##
+##endif##
+##if @f.pFilterFormatObj.strFilterFormat == IntervalistFilterFormat && @f.pFilterFormatObj.arrFilterIntervals.len##
+			fdata["showWithNoRecords"] = ##@f.pFilterFormatObj.bShowWithNoRecords##;
+			fdata["filterIntervals"] = SettingsMap.GetArray();
+##foreach @f.pFilterFormatObj.arrFilterIntervals as @Interval##
+			intervalData = SettingsMap.GetArray();
+			intervalData["lowerLimitType"] = ##@Interval.nLowerLimitType##;
+			intervalData["upperLimitType"] = ##@Interval.nUpperLimitType##;
+##if @Interval.nLowerLimitType == FIL_REMAINDER && @Interval.nUpperLimitType == FIL_REMAINDER##
+			intervalData["remainder"] = true;
+##else##
+			intervalData["remainder"] = false;
+##endif##
+##if @Interval.nLowerLimitType == FIL_NONE && @Interval.nUpperLimitType == FIL_NONE##
+			intervalData["noLimits"] = true;
+##else##
+			intervalData["noLimits"] = false;
+##endif##
+			intervalData["intervalLabelNameType"] = "##@Interval.strMutilangIntervalText.nameType s##";
+			intervalData["intervalLabelText"] = "##@Interval.strMutilangIntervalText.text s##";
+##if !@Interval.bLowerUsesExpression##
+			intervalData["lowerLimit"] = "##@Interval.strLowerLimit##";
+##endif##
+##if !@Interval.bUpperUsesExpression##
+			intervalData["upperLimit"] = "##@Interval.strUpperLimit##";
+##endif##
+##if @Interval.bLowerUsesExpression##
+			intervalData["lowerUsesExpression"] = true;
+##else##
+			intervalData["lowerUsesExpression"] = false;
+##endif##
+##if @Interval.bUpperUsesExpression##
+			intervalData["upperUsesExpression"] = true;
+##else##
+			intervalData["upperUsesExpression"] = false;
+##endif##
+##if @Interval.bCaseInsensitiveFiltering##
+			intervalData["caseSensetive"] = false;
+##else##
+			intervalData["caseSensetive"] = true;
+##endif##
+			intervalData["index"] = ##@index##;
+			fdata["filterIntervals"].Add(intervalData);
+##endfor##
+##endif##
+##if @f.pFilterFormatObj.strFilterFormat == BooleanFilterFormat##
+			fdata["filterCheckedMessageType"] = "##@f.pFilterFormatObj.strMultilangCheckedMessage.nameType s##";
+			fdata["filterCheckedMessageText"] = "##@f.pFilterFormatObj.strMultilangCheckedMessage.text s##";
+			fdata["filterUncheckedMessageType"] = "##@f.pFilterFormatObj.strMultilangUncheckedMessage.nameType s##";
+			fdata["filterUncheckedMessageText"] = "##@f.pFilterFormatObj.strMultilangUncheckedMessage.text s##";
+##endif##
+##if @f.pFilterFormatObj.strFilterFormat == IntervalSliderFilterFormat##
+			fdata["filterKnobsType"] = ##@f.pFilterFormatObj.nSliderKnobs##;
+##if @f.pFilterFormatObj.bAddApplyButton##
+			fdata["filterApplyBtn"] = true;
+##endif##
+			fdata["filterSliderStepType"] = ##@f.pFilterFormatObj.nSliderStepType##;
+			fdata["filterSliderStepValue"] = ##@f.pFilterFormatObj.mixSliderStepValue##;
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"]["##@f.strName s##"] = fdata;
+##if !IsBinaryField(@f)##
+			tdataArray["##@TABLE.strShortTableName##"][".searchableFields"].Add("##@f.strName s##");
+##endif##
+##endfor##
+##if @TABLE.nType==titCHART##
+##if (@TABLE.strChartLabelField=="" || @TABLE.arrChartDataSeries.len==0) && @TABLE.strChartID!="gauge" && @TABLE.strChartID!="ohlc" && @TABLE.strChartID!="candle"##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = "";
+##else##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = "<chart>\r\n\t\t<attr value=\"tables\">\r\n\t\t\t<attr value=\"0\">##@TABLE.strDatasourceTable xq##</attr>\r\n\t\t</attr>\r\n\t\t<attr value=\"chart_type\">\r\n\t\t\t<attr value=\"type\">##@TABLE.strChartID##</attr>\r\n\t\t</attr>\r\n\r\n\t\t<attr value=\"parameters\">";
+##if @TABLE.strChartID!="ohlc" && @TABLE.strChartID!="candle"##
+##foreach @TABLE.arrChartDataSeries as @field filter @field.strDataField!=""##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"##eval @index-1##\">\r\n\t\t\t<attr value=\"name\">##@field.strDataField xq##</attr>");
+##if @TABLE.strChartID=="gauge"##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"gaugeMinValue\">##@field.strMinValue##</attr>\r\n\t\t\t<attr value=\"gaugeMaxValue\">##@field.strMaxValue##</attr>\r\n\t\t\t<attr value=\"gaugeColorZone\">");
+##foreach @field.arrGaugeColorZones as @colorzone##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"##eval @index-1##\">\r\n\t\t\t<attr value=\"gaugeBeginColor\">##@colorzone.strBegin##</attr>\r\n\t\t\t<attr value=\"gaugeEndColor\">##@colorzone.strEnd##</attr>\r\n\t\t\t<attr value=\"gaugeColor\">##@colorzone.strColor##</attr>\r\n\t\t</attr>");
+##endfor##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "</attr>");
+##endif##
+##if @TABLE.strChartID=="bubble"##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"size\">##@field.strBubbleSize xq##</attr>");
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "</attr>");
+##if @last##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"##eval @index##\">\r\n\t\t<attr value=\"name\">##@TABLE.strChartLabelField xq##</attr>\r\n\t</attr>");
+##endif##
+##endfor##
+##else##
+##foreach @TABLE.arrChartDataSeries as @field##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"##eval @index-1##\">\r\n\t\t\t<attr value=\"ohlcOpen\">##@field.strOpen xq##</attr>\r\n\t\t\t<attr value=\"ohlcClose\">##@field.strClose xq##</attr>\r\n\t\t\t<attr value=\"ohlcHigh\">##@field.strHigh xq##</attr>\r\n\t\t\t<attr value=\"ohlcLow\">##@field.strLow xq##</attr>");
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "</attr>");
+##if @last##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"##eval @index##\">\r\n\t\t\t<attr value=\"name\">##@TABLE.strChartLabelField xq##</attr>\r\n\t\t</attr>");
+##endif##
+##endfor##
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "</attr>\r\n\t\t\t<attr value=\"appearance\">");
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"head\">", CommonFunctions.xmlencode(new XVar(##multitext @TABLE.strChartHeader##)), "</attr>\r\n<attr value=\"foot\">", CommonFunctions.xmlencode(new XVar(##multitext @TABLE.strChartFooter##)), "</attr>\r\n<attr value=\"y_axis_label\">", CommonFunctions.xmlencode(new XVar(##multitext @TABLE.strChartYAxisLabel##)), "</attr>\r\n\r\n\r\n<attr value=\"slegend\">##if @TABLE.bChartLegend##true##else##false##endif##</attr>\r\n<attr value=\"sgrid\">##if @TABLE.bChartGrid##true##else##false##endif##</attr>\r\n<attr value=\"sname\">##if @TABLE.bChartNames##true##else##false##endif##</attr>\r\n<attr value=\"sval\">##if @TABLE.bChartValues##true##else##false##endif##</attr>\r\n<attr value=\"sanim\">##if @TABLE.bAnimation##true##else##false##endif##</attr>\r\n<attr value=\"sstacked\">##if @TABLE.b100Stacked##true##else##false##endif##</attr>\r\n<attr value=\"slog\">##if @TABLE.bLogarithmic##true##else##false##endif##</attr>\r\n<attr value=\"aqua\">##@TABLE.strChartStyle xq##</attr>\r\n<attr value=\"cview\">##@TABLE.strChartShape xq##</attr>\r\n<attr value=\"is3d\">##@TABLE.bIsChart3D##</attr>\r\n<attr value=\"isstacked\">##@TABLE.bIsChartStacked##</attr>\r\n<attr value=\"linestyle\">##@TABLE.LineChartStyle##</attr>\r\n<attr value=\"autoupdate\">##@TABLE.bAutoUpdate##</attr>\r\n<attr value=\"autoupmin\">##@TABLE.nAutoUpdateIntervalMin##</attr>");
+##if @TABLE.strChartID=="bubble"##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"bubbletransp\">##@TABLE.bBubbleTransparent##</attr>");
+##endif##
+##if @TABLE.strChartID=="funnel"##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"accumulstyle\">##@TABLE.AccumulationAppearance##</attr>\r\n<attr value=\"accumulinvert\">##@TABLE.bAccumInverted##</attr>");
+##endif##
+##if @TABLE.strChartID=="gauge"##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"gaugestyle\">##@TABLE.GaugeAppearance##</attr>");
+##endif##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "</attr>\r\n\r\n<attr value=\"fields\">");
+##foreach @TABLE.arrFieldObj as @f##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "<attr value=\"##eval @index-1##\">\r\n\t\t<attr value=\"name\">##@f.strName xq##</attr>\r\n\t\t<attr value=\"label\">", CommonFunctions.xmlencode(new XVar(##label @TABLE.strDataSourceTable @f.strName##)), "</attr>\r\n\t\t<attr value=\"search\"></attr>\r\n\t</attr>");
+##endfor##
+			tdataArray["##@TABLE.strShortTableName##"][".chartXml"] = MVCFunctions.Concat(tdataArray["##@TABLE.strShortTableName##"][".chartXml"], "</attr>\r\n\r\n\r\n<attr value=\"settings\">\r\n<attr value=\"name\">##@TABLE.strDataSourceTable xq##</attr>\r\n<attr value=\"short_table_name\">##@TABLE.strShortTableName s##</attr>\r\n</attr>\r\n\r\n</chart>");
+##endif##
+##endif##
+			GlobalVars.tables_data["##@TABLE.strDataSourceTable s##"] = tdataArray["##@TABLE.strShortTableName##"];
+			GlobalVars.field_labels["##@TABLE.strDataSourceTable g##"] = fieldLabelsArray["##@TABLE.strShortTableName##"];
+			GlobalVars.fieldToolTips["##@TABLE.strDataSourceTable g##"] = fieldToolTipsArray["##@TABLE.strShortTableName##"];
+			GlobalVars.placeHolders["##@TABLE.strDataSourceTable g##"] = placeHoldersArray["##@TABLE.strShortTableName##"];
+			GlobalVars.page_titles["##@TABLE.strDataSourceTable g##"] = pageTitlesArray["##@TABLE.strShortTableName##"];
+##if !@TABLE.bReportCrossTab##
+			GlobalVars.detailsTablesData["##@TABLE.strDataSourceTable s##"] = SettingsMap.GetArray();
+##foreach @TABLE.arrDetailTables as @dt##
+##set @t=@BUILDER.Tables{@dt}##
+##set @master=@t.arrMasterTables[strMasterTable=@TABLE.strDataSourceTable]##
+##if @master##
+			dIndex = ##eval @index-1##;
+			detailsParam = SettingsMap.GetArray();
+			detailsParam["dDataSourceTable"] = "##@t.strDataSourceTable s##";
+##if @t.strOriginalTable##
+			detailsParam["dOriginalTable"] = "##@t.strOriginalTable s##";
+##else##
+			detailsParam["dOriginalTable"] = "##@t.strDataSourceTable s##";
+##endif##
+##if 1=0##
+##if @master.bproceedLink##
+			detailsParam["proceedLink"] = true;
+##else##
+			detailsParam["proceedLink"] = false;
+##endif##
+##endif##
+##if @t.nType == titREPORT##
+			detailsParam["dType"] = Constants.PAGE_REPORT;
+##endif##
+##if @t.nType == titCHART##
+			detailsParam["dType"] = Constants.PAGE_CHART;
+##endif##
+##if @t.nType == titTABLE || @t.nType == titVIEW##
+			detailsParam["dType"] = Constants.PAGE_LIST;
+##endif##
+			detailsParam["dShortTable"] = "##@t.strShortTableName##";
+			detailsParam["dCaptionTable"] = CommonFunctions.GetTableCaption(new XVar("##@t.strDataSourceTable g##"));
+			detailsParam["masterKeys"] = SettingsMap.GetArray();
+			detailsParam["detailKeys"] = SettingsMap.GetArray();
+##if 1=0##
+##if @t.bList##
+##if @TABLE.nLinksOnList != dlNONE##
+			detailsParam["previewOnList"] = "##@master.nDetailPreview##";
+##endif##
+			detailsParam["previewOnAdd"] = ##@master.childOnAdd##;
+			detailsParam["previewOnEdit"] = ##@master.childOnEdit##;
+			detailsParam["previewOnView"] = ##@master.childOnView##;
+##else##
+			detailsParam["previewOnList"] = Constants.DP_NONE;
+##endif##
+##endif##
+##if @t.arrFieldObj[viewFormats[strViewFormat == FORMAT_AUDIO || strViewFormat == FORMAT_DATABASE_AUDIO].len].len##
+			detailsParam["isUseAudio"] = true;
+##endif##
+##if @t.arrFieldObj[viewFormats[strViewFormat == FORMAT_AUDIO || strViewFormat == FORMAT_DATABASE_AUDIO].len].len##
+			detailsParam["isUseAudio"] = true;
+##endif##
+			GlobalVars.detailsTablesData["##@TABLE.strDataSourceTable s##"][dIndex] = detailsParam;
+##if 1=0##
+##if @master.childOnAdd && !@t.bInlineAdd && !@t.bAdd##
+			GlobalVars.detailsTablesData["##@TABLE.strDataSourceTable s##"][dIndex]["previewOnAdd"] = false;
+##endif##
+##endif##
+##foreach @master.arrMasterKeys as @mk##
+##if @first##
+			GlobalVars.detailsTablesData["##@TABLE.strDataSourceTable s##"][dIndex]["masterKeys"] = SettingsMap.GetArray();
+##endif##
+			GlobalVars.detailsTablesData["##@TABLE.strDataSourceTable s##"][dIndex]["masterKeys"].Add("##@mk s##");
+##endfor##
+##foreach @master.arrDetailKeys as @dk##
+##if @first##
+			GlobalVars.detailsTablesData["##@TABLE.strDataSourceTable s##"][dIndex]["detailKeys"] = SettingsMap.GetArray();
+##endif##
+			GlobalVars.detailsTablesData["##@TABLE.strDataSourceTable s##"][dIndex]["detailKeys"].Add("##@dk s##");
+##endfor##
+##endif##
+##endfor##
+##endif##
+			GlobalVars.masterTablesData["##@TABLE.strDataSourceTable s##"] = SettingsMap.GetArray();
+##set @mIndex=0##
+##foreach @TABLE.arrMasterTables as @m##
+##set @t=@BUILDER.tables{@m.strMasterTable}##
+##if !@t.bReportCrossTab##
+##if @t.strOriginalTable##
+			strOriginalDetailsTable = "##@t.strOriginalTable s##";
+##else##
+			strOriginalDetailsTable = "##@m.strMasterTable s##";
+##endif##
+			masterParams = SettingsMap.GetArray();
+			masterParams["mDataSourceTable"] = "##@m.strMasterTable s##";
+			masterParams["mOriginalTable"] = strOriginalDetailsTable;
+			masterParams["mShortTable"] = "##@t.strShortTableName##";
+			masterParams["masterKeys"] = SettingsMap.GetArray();
+			masterParams["detailKeys"] = SettingsMap.GetArray();
+			masterParams["type"] = Constants.PAGE_LIST;
+##if @t.nType == titCHART##
+			masterParams["type"] = Constants.PAGE_CHART;
+##endif##
+##if @t.nType == titREPORT##
+			masterParams["type"] = Constants.PAGE_REPORT;
+##endif##
+			GlobalVars.masterTablesData["##@TABLE.strDataSourceTable s##"][##@mIndex##] = masterParams;
+##foreach @m.arrMasterKeys as @mk##
+##if @first##
+			GlobalVars.masterTablesData["##@TABLE.strDataSourceTable s##"][##@mIndex##]["masterKeys"] = SettingsMap.GetArray();
+##endif##
+			GlobalVars.masterTablesData["##@TABLE.strDataSourceTable s##"][##@mIndex##]["masterKeys"].Add("##@mk s##");
+##endfor##
+##foreach @m.arrDetailKeys as @dk##
+##if @first##
+			GlobalVars.masterTablesData["##@TABLE.strDataSourceTable s##"][##@mIndex##]["detailKeys"] = SettingsMap.GetArray();
+##endif##
+			GlobalVars.masterTablesData["##@TABLE.strDataSourceTable s##"][##@mIndex##]["detailKeys"].Add("##@dk s##");
+##endfor##
+##set @mIndex=@mIndex+1##
+##endif##
+##endfor##
+##include include/query.cs##
+			##checkAnyEncryptionUsing()##
+##if @BUILDER.bCreateLoginPage && @BUILDER.m_nLoginMethod == SECURITY_TABLE && @TABLE.strDataSourceTable=="admin_users" && @BUILDER.strLoginDataSource.len##
+##foreach @BUILDER.Tables{@BUILDER.strLoginDataSource}.m_arrFieldObj as @g##
+##if @anyEncryptionUsed != 0 && @g.m_bEncrypted##
+			((dynamic)(XVar)((dynamic)(XVar)queryData_Array["##@TABLE.strShortTableName##"]).m_fieldlist[##eval @index-1##]).m_isEncrypted = true;
+##endif##
+##endfor##
+##endif##
+##foreach Fields as @f##
+##if @anyEncryptionUsed && @f.m_bEncrypted##
+			((dynamic)(XVar)((dynamic)(XVar)queryData_Array["##@TABLE.strShortTableName##"]).m_fieldlist[##eval @index-1##]).m_isEncrypted = true;
+##endif##
+##endfor##
+			tdataArray["##@TABLE.strShortTableName##"][".sqlquery"] = queryData_Array["##@TABLE.strShortTableName##"];
+##if @TABLE.arrEventHandlers.len || @TABLE.controlLinks.len
+	|| @TABLE.strDataSourceTable=="admin_members" && @BUILDER.controlLinks[page==PAGE_ADMIN_MEMBERS].len
+	|| @TABLE.strDataSourceTable=="admin_rights" && @BUILDER.controlLinks[page==PAGE_ADMIN_RIGHTS].len##
+			GlobalVars.tableEvents["##@TABLE.strDataSourceTable s##"] = new eventclass_##@TABLE.strShortTableName##();
+			tdataArray["##@TABLE.strShortTableName##"][".hasEvents"] = true;
+##else##
+			GlobalVars.tableEvents["##@TABLE.strDataSourceTable s##"] = new eventsBase();
+			tdataArray["##@TABLE.strShortTableName##"][".hasEvents"] = false;
+##endif##
+##foreach @TABLE.arrEventHandlers as @eh filter @eh.strEventID=="EVENT_INIT_TABLE"##
+			query = queryData_Array["##@TABLE.strShortTableName##"];
+			table = "##@TABLE.strDataSourceTable s##";
+			
+var eventContext = XVar.Array();
+eventContext["table"] = table;
+eventContext["query"] = query;
+GlobalVars.globalEvents.AfterTableInit(eventContext);
+query = eventContext["query"];
+
+			##endfor##
+			GlobalVars.tables_data["##@TABLE.strShortTableName##"] = tdataArray["##@TABLE.strShortTableName##"];
+		}
+	}
+
+}

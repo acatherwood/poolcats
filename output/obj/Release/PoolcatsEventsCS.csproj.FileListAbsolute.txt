@@ -1,0 +1,12 @@
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\bin\Events\CSEvents.dll
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\bin\Events\CSEvents.pdb
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\bin\Events\BCrypt.Net.dll
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\obj\Release\PoolcatsEventsCS.csprojResolveAssemblyReference.cache
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\obj\Release\CSEvents.dll
+C:\Users\Anne\Documents\ASPRunnerNETProjects\Poolcats\output\obj\Release\CSEvents.pdb
+D:\ASPRunnerNETProjects\Poolcats\output\bin\Events\CSEvents.dll
+D:\ASPRunnerNETProjects\Poolcats\output\bin\Events\CSEvents.pdb
+D:\ASPRunnerNETProjects\Poolcats\output\bin\Events\BCrypt.Net.dll
+D:\ASPRunnerNETProjects\Poolcats\output\obj\Release\PoolcatsEventsCS.csprojResolveAssemblyReference.cache
+D:\ASPRunnerNETProjects\Poolcats\output\obj\Release\CSEvents.dll
+D:\ASPRunnerNETProjects\Poolcats\output\obj\Release\CSEvents.pdb

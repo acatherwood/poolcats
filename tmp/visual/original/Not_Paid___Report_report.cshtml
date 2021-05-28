@@ -1,0 +1,539 @@
+<!doctype html>
+<html  {$html_attrs}>
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>{$pagetitle}</title>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<link REL="stylesheet" href="styles/default.css" type="text/css">
+		<!--BEGIN rtlCSS-->
+		<link REL="stylesheet" href="styles/defaultRTL.css" type="text/css">
+		<!--END rtlCSS-->
+		<!--BEGIN styleCSSFiles-->
+		<link REL="stylesheet" href="{$stylepath}" type="text/css">
+		<!--END styleCSSFiles-->
+	<style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</style></head>
+	<body class="{$stylename} function-report" {$bodyattrs}>
+	<!--BEGIN body-->
+		<DIV id='header' class='simple-xt-tag' style='display: inline-block;'>header</DIV>
+		<style>
+			{$containerCss}
+		</style>
+		<div class="r-topbar-page">
+			<div data-menu-width="full" 
+				 
+				class="r-topheader" 
+				data-resize-name="topbar"
+				data-body-align="left"
+			>
+								<!--BEGIN supertop_block-->
+<nav class="navbar navbar-default
+	bs-fullwidth-navbar
+" 
+	data-location="supertop" id="form_supertop_{$pageid}" data-makeup="topbar" {$form_supertop} data-pageid="{$pageid}" >
+			 
+			 
+				<span data-cellId="supertop_c1" data-pageid="{$pageid}" class="r-align-left navbar-header" data-itemid="logo" {$item_logo}>
+				<!--BEGIN logo_block-->
+	<A data-itemtype="logo" data-itemid="logo" {$item_logo} data-pageid="{$pageid}" class="navbar-brand" href="{$home_link}" data-brick="logo" data-pageid="{$pageid}" {$logo_hiddenattr}>
+		<SPAN id='logo'>Poolcats</SPAN>
+	</A>
+<!--END logo_block-->
+				<button data-pageid="1" type="button" class="navbar-toggle collapsed" data-runner-toggle="collapse" data-target="[data-mobile-controlled]">	
+					<span class="sr-only">Toggle navigation</span>	
+					<span class="icon-bar"></span>					
+				</button>				
+			</span>
+		 
+				<span data-cellId="supertop_c1" data-pageid="{$pageid}" class="r-align-left navbar-collapse" data-itemtype="menu" data-itemid="menu" {$item_menu} data-pageid="{$pageid}">
+				<ul class="nav navbar-nav">
+                <li class=""><a href="#">Suit</a></li>
+            
+                <li class=""><a href="#">Swimmer</a></li>
+            
+                <li class=""><a href="#">Payment</a></li>
+            
+                <li class=""><a href="#">Contact</a></li>
+            
+                <li class=""><a href="#">Swimmers Without Suits - Report</a></li>
+            
+                <li class="active"><a href="#">Not Paid - Report</a></li>
+            </ul>			</span>
+				 
+			 
+				<span class="navbar-form r-align-right navbar-collapse" data-cellId="supertop_c2" data-pageid="{$pageid}" data-itemid="list_options" {$item_list_options} data-topcell-item-type="list_options" >
+				<span data-itemtype="list_options" data-itemid="list_options" {$item_list_options} data-pageid="{$pageid}" data-button-item>
+	<span class="dropdown">
+		<button type="button" class="btn btn-default   dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+							<span class="glyphicon glyphicon-cog"></span>
+									<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+								<li data-itemtype="advsearch_link" data-itemid="advsearch_link" {$item_advsearch_link} data-pageid="{$pageid}" >
+				<a   href="Not_Paid___Report_search.aspx" {$advsearchlink_attrs} >
+				
+		Advanced search		
+		</a>
+	</li>
+							<!--BEGIN searchPanelTopButtons-->
+	<li data-itemtype="show_search_panel" data-itemid="show_search_panel" {$item_show_search_panel} data-pageid="{$pageid}" >
+				<a  id="showOptPanel{$id}" >
+				
+		Show search panel		
+		</a>
+	</li>
+<!--END searchPanelTopButtons-->
+							<!--BEGIN searchPanelTopButtons-->
+	<li data-itemtype="hide_search_panel" data-itemid="hide_search_panel" {$item_hide_search_panel} data-pageid="{$pageid}" >
+				<a  id="hideOptPanel{$id}" >
+				
+		Hide search panel		
+		</a>
+	</li>
+<!--END searchPanelTopButtons-->
+							<li role="separator" class="divider"></li>							<!--BEGIN export_link-->
+	<li data-itemtype="export_report_excel" data-itemid="export_report_excel" {$item_export_report_excel} data-pageid="{$pageid}" >
+				<a  href="Not_Paid___Report_export.aspx?all=1&amp;format=excel" {$excellink_attrs} >
+				
+		Export to Excel		
+		</a>
+	</li>
+<!--END export_link-->
+							<!--BEGIN export_link-->
+	<li data-itemtype="export_report_word" data-itemid="export_report_word" {$item_export_report_word} data-pageid="{$pageid}" >
+				<a  href="Not_Paid___Report_export.aspx?all=1&amp;format=word" {$wordlink_attrs} >
+				
+		Export to Word		
+		</a>
+	</li>
+<!--END export_link-->
+					</ul>
+	</span>
+</span>
+			</span>
+		 
+				<span class="navbar-form r-align-right navbar-collapse" data-cellId="supertop_c2" data-pageid="{$pageid}" data-itemid="simple_search" {$item_simple_search} data-topcell-item-type="simple_search" >
+				<span data-itemtype="simple_search" data-itemid="simple_search" {$item_simple_search} data-pageid="{$pageid}" class="form-group">
+
+<div  class="input-group">
+<!--BEGIN searchform_text-->
+	<input type="search" class="form-control" {$searchfor_attrs} size="25">
+<!--END searchform_text-->
+	<span class="input-group-btn">
+	<!--BEGIN searchform_showall-->
+		<button class="btn btn-default" {$showAllCont_attrs} {$showallbutton_attrs} title="Show all">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	<!--END searchform_showall-->
+	<!--BEGIN searchform_search-->
+	<button {$searchbutton_attrs} class="btn btn-primary" >
+		<span class="glyphicon glyphicon-search"></span>
+	</button>
+	<!--END searchform_search-->
+	</span>
+</div>
+		
+</span>			</span>
+					</nav>
+<!--END supertop_block-->
+				</div>	
+			
+			<div data-body-align="left"  data-body-width="standard" class="r-body" data-resize-top="topbar" >
+				<div class="r-top">
+								<!--BEGIN top_block-->
+<div class="r-form" data-location="top" id="form_top_{$pageid}" data-makeup="topbar" {$form_top} data-pageid="{$pageid}" >		
+	 
+		<div class="row">
+			 
+				<div 
+	data-cellId="top_c1" data-pageid="{$pageid}"	{$cell_top_c1}
+	class=" r-ori-vert			col-md-12
+	
+">
+		 
+		
+            <ol class="breadcrumb">
+                <li ><a href="#"><span class="glyphicon glyphicon-home"></span></a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Not Paid - Report
+                        <span class="caret"></span>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">Suit</a></li><li><a href="#">Swimmer</a></li><li><a href="#">Swimmers Without Suits - Report</a></li><li><a href="#">Payment</a></li><li><a href="#">Contact</a></li><li><a href="#">Not Paid - Report</a></li>
+                        </ul>
+                    </a>
+                </li>
+            </ol>
+        		</div>					</div>
+	</div>		
+<!--END top_block-->
+					</div>
+				<div class="r-content">
+										<div class="r-left" {$blockattr_left} {$form_left} >
+										<!--BEGIN left_block-->
+<table class="r-fluid r-form" data-location="left" id="form_left_{$pageid}" data-makeup="topbar" {$form_left} data-pageid="{$pageid}" >
+						<tbody>
+			
+								<tr>
+									<td 
+	class=" r-ori-vert			"
+			 
+	data-cellId="left_c1" data-pageid="{$pageid}">
+ 
+
+
+</td>
+							</tr>
+					
+					</tbody>
+				</table>
+<!--END left_block-->
+						</div>
+										<div class="r-data-block" data-body-width="standard" >
+						
+										<!--BEGIN above-grid_block-->
+<div class="r-form" data-location="above-grid" id="form_above-grid_{$pageid}" data-makeup="topbar" {$form_above-grid} data-pageid="{$pageid}" >		
+	 
+		<div class="row">
+			 
+				<div 
+	data-cellId="above-grid_c1" data-pageid="{$pageid}"	{$cell_above-grid_c1}
+	class="			col-md-6
+	
+">
+		<!--BEGIN firstAboveGridCell-->
+		 
+					<div data-itemtype="details_preview" data-itemid="details_preview" {$item_details_preview} data-pageid="{$pageid}" 
+	data-orders="public_swimmercontact,public_swimmerpayment,public_swimmersuit"
+			data-details-public_swimmercontact			data-details-public_swimmerpayment			data-details-public_swimmersuit	>
+		<span data-details-inside data-short-table="public_swimmercontact">
+			</span>
+		<span data-details-inside data-short-table="public_swimmerpayment">
+			</span>
+		<span data-details-inside data-short-table="public_swimmersuit">
+			</span>
+		<div data-details-preview>
+	</div>
+</div>
+	 
+			 
+		
+	<!--BEGIN dtables_link-->
+				<a 
+			data-itemtype="grid_details_link" data-itemid="grid_details_link" {$item_grid_details_link} data-pageid="{$pageid}" 
+			{$public_swimmercontact_link_attrs} 
+			class="{$dtables_link_class} details-badge badge public_swimmercontact_badge" 
+			title="Show details"
+		>
+							<span class="glyphicon glyphicon-th-list"></span>
+									<span class="{$public_swimmercontact_cntspan_class}" {$public_swimmercontact_childnumber_attr}>
+				3				
+			</span>
+		</a>
+	<!--END dtables_link-->
+
+
+
+
+
+	 
+			 
+					<!--END firstAboveGridCell-->	
+	</div>			 
+				<div 
+	data-cellId="above-grid_c2" data-pageid="{$pageid}"	{$cell_above-grid_c2}
+	class="r-align-right			col-md-6
+	
+">
+		 
+		<span data-itemtype="details_found" data-itemid="details_found" {$item_details_found} data-pageid="{$pageid}" >
+<span data-itemtype="details_found" data-itemid="details_found" data-pageid="1">Displaying <span class="bs-number">1</span> - <span class="bs-number">20</span> of <span class="bs-number">55</span></span>
+</span>	 
+		<span data-itemtype="page_size" data-itemid="page_size" {$item_page_size} data-pageid="{$pageid}" >
+		
+                    <select class="form-control" id="recordspp1">
+                        <option value="1" >1</option>
+<option value="3" >3</option>
+<option value="5" selected="">5</option>
+<option value="10" >10</option>
+<option value="50" >50</option>
+<option value="100" >100</option>
+<option value="All" >All</option>
+
+                    </select>
+                
+</span>	 
+		<!--BEGIN print_friendly-->
+<span class="bs-printpanel" id="printpanelblock{$id}"  data-pageid="{$pageid}" {$printpanel_hiddenattr} data-itemtype="print_panel" data-itemid="print_panel" {$item_print_panel} data-pageid="{$pageid}">
+	<button title="Print-friendly page" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span class="glyphicon glyphicon-print"></span>
+				<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu pull-right">
+										 
+				<li class="container-fluid">
+					<div id="print_friendly_scope{$id}">
+	<div class="row">
+		<div class="col-md-4">
+			Scope:		</div>
+
+		<!--BEGIN print_friendly_all-->
+		<div class="col-md-8">
+			<label for="printAll{$id}">
+				<input type="radio" id="printAll{$id}" data-href="Not_Paid___Report_print.aspx?all=1&amp;{$crosstable_attrs}" name="printScope">
+									Print whole report							</label>
+		</div>
+		<!--END print_friendly_all-->
+	</div>
+	<div class="row">
+		<div class="col-md-4">&nbsp;</div>
+		<div class="col-md-8">
+			<label for="printPage{$id}">
+				<input name="printScope" id="printPage{$id}" type="radio" checked data-href="Not_Paid___Report_print.aspx?{$crosstable_attrs}">
+				Print this page			</label>
+		</div>
+	</div>
+	
+	</div>				</li>
+								<li class="divider" role="separator"></li>
+															 
+				<li class="container-fluid">
+					<div>
+	<label for="printPerPage{$id}">
+					Groups per page							
+	</label>
+	<input type="number" id="printPerPage{$id}" value="{$print_recspp}" class="rnr-printrecspp">		
+</div>
+				</li>
+								<li class="divider" role="separator"></li>
+															 
+				<li class="container-fluid">
+					<span data-itemtype="print_button" data-itemid="print_button" {$item_print_button} data-pageid="{$pageid}" data-button-item>
+	<a type="button" class="btn btn-primary   
+	" id="print_friendly_button{$id}" >
+							Print			</a>
+</span>
+				</li>
+										</ul>
+</span>
+<!--END print_friendly-->
+		</div>					</div>
+	</div>		
+<!--END above-grid_block-->
+							
+						<div class="r-grid">
+										<!--BEGIN grid_block-->
+
+<style>
+	td.pagesummary.pagesummary.pagesummary.pagesummary.pagesummary.pagesummary.pagesummary.pagesummary {
+		background-color: #ffffbb;
+	}
+	td.globalsummary.globalsummary.globalsummary.globalsummary.globalsummary.globalsummary.globalsummary.globalsummary {background-color: #ffe0b0;
+	}
+	.rnr-report {
+		width: 100%;
+	}
+	td {
+		padding: 2px; 4px;
+	}
+			td.group_1{
+			background-color: #FFFFFF;
+		}
+		td.nbgroup_1{
+			background-color: #FFFFFF;
+		}
+		td.header_1 {
+			background-color: #D8D8D8; 
+			font-size: 120%;
+			padding: 2px 8px;
+			font-weight: bold;
+		}
+		td.blackshade {
+		font-size: 120%;
+	}
+	.summaryrow > * {
+		border:solid #808080 1px; 
+		border-left: none; 
+		border-right: none;
+	}
+		.fieldnamesrow > * 
+	{
+		border:solid #808080 1px; 
+		border-left: none; 
+		border-right: none;
+	}
+	</style>
+<div class="rnr-cw-grid rnr-s-2 asbuttons {$pageStyleName}" data-location="grid" id="form_grid_{$pageid}" data-makeup="topbar" {$form_grid} data-pageid="{$pageid}" >
+					
+ <!-- add to settings ? -->
+
+
+<table class="table table-striped table-bordered rnr-b-grid rnr-gridtable" cellpadding="0" >
+	<tbody>			
+<!--BEGIN grid_row-->
+				<!--  group headers -->
+	 
+		<!--BEGIN last_name_newgroup-->							
+		<tr class="group-spliter-1"  >
+			<td class="header_1" colspan="1">
+				<span typeid="label" id1="Not Paid - Report" id2="last_name">Last Name</span>:&nbsp;
+				<div class="field_black view-control form-control" typeid="view_last_name"><span class="glyphicon glyphicon-text"></span>&nbsp;Last Name</div>
+			</td>
+		</tr>
+		
+				<tr class="fieldnamesrow group-headers">
+																	<td class="blackshade"><span typeid="label" id1="Not Paid - Report" id2="first_name">First Name</span></td>
+									</tr>
+				<!--END last_name_newgroup-->
+		
+
+			<!--  data-->
+		<!--BEGIN row_data-->
+		<tr >
+																	<td class=data><div class="field_black view-control form-control" typeid="view_first_name"><span class="glyphicon glyphicon-text"></span>&nbsp;First Name</div></td>
+									</tr>
+		<!--END row_data-->
+	
+	<!---  group summary-->
+					<!--BEGIN last_name_endgroup-->
+
+		<tr >
+					<td class="group_1" colspan="1">
+				Summary for <span typeid="label" id1="Not Paid - Report" id2="last_name">Last Name</span> <div class="field_black view-control form-control" typeid="view_last_name"><span class="glyphicon glyphicon-text"></span>&nbsp;Last Name</div> - <span class="summary-1" data-type="summary" data-value="7">
+					7
+				</span> records total			</td>			
+				</tr>
+		
+		
+		
+		
+			
+
+		<!--END last_name_endgroup-->
+			
+<!--END grid_row-->
+
+
+
+
+	
+
+	</tbody>
+</table>		</div>
+	<!--END grid_block-->							</div>
+						
+										<!--BEGIN below-grid_block-->
+<div class="r-form" data-location="below-grid" id="form_below-grid_{$pageid}" data-makeup="topbar" {$form_below-grid} data-pageid="{$pageid}" >		
+	 
+		<div class="row">
+			 
+				<div 
+	data-cellId="below-grid_c1" data-pageid="{$pageid}"	{$cell_below-grid_c1}
+	class="r-align-center r-ori-vert			col-md-12
+	
+">
+		 
+		<!--BEGIN pagination_block-->
+<span data-itemtype="pagination" data-itemid="pagination" {$item_pagination} data-pageid="{$pageid}" >
+
+					<span data-itemtype="pagination" data-itemid="pagination" data-pageid="1">
+						<nav class="text-center"><ul class="pagination" data-function="pagination1"><li class="active"><a href="#" pagenum="1">1</a></li><li class=""><a href="#" pagenum="2">2</a></li><li class=""><a href="#" pagenum="3">3</a></li></ul></nav>
+					</span>
+				
+</span>
+<!--END pagination_block-->
+		</div>					</div>
+	</div>		
+<!--END below-grid_block-->
+							
+					</div>
+				</div>
+			</div>
+		</div>
+		<DIV id='footer' class='simple-xt-tag' style='display: inline-block;'>footer</DIV>
+	<!--END body-->
+	</body>
+</html>

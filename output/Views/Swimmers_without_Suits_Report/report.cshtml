@@ -1,0 +1,488 @@
+﻿@using runnerDotNet;
+@{
+ XTempl Model = this.Model;
+ if(ViewBag != null && ViewBag.xt != null)
+ {
+  Model = ViewBag.xt;
+  if(Model != null)
+  {
+   Model.currentViewContext = ViewContext;
+  }
+ }
+ string webRootPath = MVCFunctions.GetWebRootPath();
+}
+
+<!doctype html>@(new HtmlString(MVCFunctions.GetBuferContentAndClearBufer()))
+<HTML @(Model.displayVar("html_attrs"))>
+	<head>
+		<META http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<META name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>@(Model.displayVar("pagetitle"))</title>
+
+		<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<LINK REL="stylesheet" href="@(webRootPath)styles/default.css" type="text/css" />
+		@foreach (string _rtlCSS in Model.GetSection("rtlCSS", this)){
+		<LINK REL="stylesheet" href="@(webRootPath)styles/defaultRTL.css" type="text/css" />
+		}
+		@foreach (string _styleCSSFiles in Model.GetSection("styleCSSFiles", this)){
+		<LINK REL="stylesheet" href="@(webRootPath)@(Model.displayVar("stylepath"))" type="text/css" />
+		}
+	</head>
+	<BODY class="@(Model.displayVar("stylename")) function-report" @(Model.displayVar("bodyattrs"))>
+	@foreach (string _body in Model.GetSection("body", this)){
+		{Html.RenderSharedView("header");}
+		<style>@MvcHtmlString.Create(@"")@(Model.displayVar("containerCss"))@MvcHtmlString.Create(@"")</style>
+		<div class="r-topbar-page">
+			<div data-menu-width="full" 
+				 
+				class="r-topheader" 
+				data-resize-name="topbar"
+				data-body-align="center"
+			>
+								@foreach (string _supertop_block in Model.GetSection("supertop_block", this)){
+<NAV class="navbar navbar-default
+	bs-fullwidth-navbar
+" data-location="supertop" id="form_supertop_@(Model.displayVar("pageid"))" data-makeup="topbar" @(Model.displayVar("form_supertop")) data-pageid="@(Model.displayVar("pageid"))">
+			 
+			 
+				<SPAN data-cellId="supertop_c1" data-pageid="@(Model.displayVar("pageid"))" class="r-align-left navbar-header" data-itemid="logo" @(Model.displayVar("item_logo"))>
+				@foreach (string _logo_block in Model.GetSection("logo_block", this)){
+	<A data-itemtype="logo" data-itemid="logo" @(Model.displayVar("item_logo")) data-pageid="@(Model.displayVar("pageid"))" class="navbar-brand" href="@(webRootPath)@(Model.displayVar("home_link"))" data-brick="logo" data-pageid="@(Model.displayVar("pageid"))" @(Model.displayVar("logo_hiddenattr"))>
+		@(Model.displayVar("logo"))
+	</A>
+}
+				<button data-pageid="1" type="button" class="navbar-toggle collapsed" data-runner-toggle="collapse" data-target="[data-mobile-controlled]">	
+					<span class="sr-only">Toggle navigation</span>	
+					<span class="icon-bar"></span>					
+				</button>				
+			</span>
+		 
+				<SPAN data-cellId="supertop_c1" data-pageid="@(Model.displayVar("pageid"))" class="r-align-left navbar-collapse" data-itemtype="menu" data-itemid="menu" @(Model.displayVar("item_menu")) data-pageid="@(Model.displayVar("pageid"))">
+				@(Model.displayVar("menu main horizontal"))			</span>
+				 
+			 
+				<SPAN class="navbar-form r-align-right navbar-collapse" data-cellId="supertop_c2" data-pageid="@(Model.displayVar("pageid"))" data-itemid="list_options" @(Model.displayVar("item_list_options")) data-topcell-item-type="list_options">
+				<SPAN data-itemtype="list_options" data-itemid="list_options" @(Model.displayVar("item_list_options")) data-pageid="@(Model.displayVar("pageid"))" data-button-item>
+	<span class="dropdown">
+		<button type="button" class="btn btn-default   dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+							<span class="glyphicon glyphicon-cog"></span>
+									<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+								<LI data-itemtype="advsearch_link" data-itemid="advsearch_link" @(Model.displayVar("item_advsearch_link")) data-pageid="@(Model.displayVar("pageid"))">
+				<A href="@(webRootPath)Swimmers_without_Suits_Report/search" @(Model.displayVar("advsearchlink_attrs"))>
+				
+		Advanced search		
+		</a>
+	</li>
+							@foreach (string _searchPanelTopButtons in Model.GetSection("searchPanelTopButtons", this)){
+	<LI data-itemtype="show_search_panel" data-itemid="show_search_panel" @(Model.displayVar("item_show_search_panel")) data-pageid="@(Model.displayVar("pageid"))">
+				<A id="showOptPanel@(Model.displayVar("id"))">
+				
+		Show search panel		
+		</a>
+	</li>
+}
+							@foreach (string _searchPanelTopButtons_1 in Model.GetSection("searchPanelTopButtons", this)){
+	<LI data-itemtype="hide_search_panel" data-itemid="hide_search_panel" @(Model.displayVar("item_hide_search_panel")) data-pageid="@(Model.displayVar("pageid"))">
+				<A id="hideOptPanel@(Model.displayVar("id"))">
+				
+		Hide search panel		
+		</a>
+	</li>
+}
+							<li role="separator" class="divider"></li>							@foreach (string _export_link in Model.GetSection("export_link", this)){
+	<LI data-itemtype="export_report_excel" data-itemid="export_report_excel" @(Model.displayVar("item_export_report_excel")) data-pageid="@(Model.displayVar("pageid"))">
+				<A href="@(webRootPath)Swimmers_without_Suits_Report/export?all=1&amp;format=excel" @(Model.displayVar("excellink_attrs"))>
+				
+		Export to Excel		
+		</a>
+	</li>
+}
+							@foreach (string _export_link_1 in Model.GetSection("export_link", this)){
+	<LI data-itemtype="export_report_word" data-itemid="export_report_word" @(Model.displayVar("item_export_report_word")) data-pageid="@(Model.displayVar("pageid"))">
+				<A href="@(webRootPath)Swimmers_without_Suits_Report/export?all=1&amp;format=word" @(Model.displayVar("wordlink_attrs"))>
+				
+		Export to Word		
+		</a>
+	</li>
+}
+					</ul>
+	</span>
+</span>
+			</span>
+		 
+				<SPAN class="navbar-form r-align-right navbar-collapse" data-cellId="supertop_c2" data-pageid="@(Model.displayVar("pageid"))" data-itemid="simple_search" @(Model.displayVar("item_simple_search")) data-topcell-item-type="simple_search">
+				<SPAN data-itemtype="simple_search" data-itemid="simple_search" @(Model.displayVar("item_simple_search")) data-pageid="@(Model.displayVar("pageid"))" class="form-group">
+
+<div  class="input-group">
+@foreach (string _searchform_text in Model.GetSection("searchform_text", this)){
+	<INPUT type="search" class="form-control" @(Model.displayVar("searchfor_attrs")) size="25" />
+}
+	<span class="input-group-btn">
+	@foreach (string _searchform_showall in Model.GetSection("searchform_showall", this)){
+		<BUTTON class="btn btn-default" @(Model.displayVar("showAllCont_attrs")) @(Model.displayVar("showallbutton_attrs")) title="Show all">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	}
+	@foreach (string _searchform_search in Model.GetSection("searchform_search", this)){
+	<BUTTON @(Model.displayVar("searchbutton_attrs")) class="btn btn-primary">
+		<span class="glyphicon glyphicon-search"></span>
+	</button>
+	}
+	</span>
+</div>
+		
+</span>			</span>
+					</nav>
+}
+				</div>	
+			
+			<div data-body-align="center"  data-body-width="standard" class="r-body" data-resize-top="topbar" >
+				<div class="r-top">
+								@foreach (string _top_block in Model.GetSection("top_block", this)){
+<DIV class="r-form" data-location="top" id="form_top_@(Model.displayVar("pageid"))" data-makeup="topbar" @(Model.displayVar("form_top")) data-pageid="@(Model.displayVar("pageid"))">		
+	 
+		<div class="row">
+			 
+				<DIV data-cellId="top_c1" data-pageid="@(Model.displayVar("pageid"))" @(Model.displayVar("cell_top_c1")) class=" r-ori-vert			col-md-12
+	
+">
+		 
+		@foreach (string _breadcrumb in Model.GetSection("breadcrumb", this)){
+<OL class="breadcrumb" data-itemtype="breadcrumb" data-itemid="breadcrumb" @(Model.displayVar("item_breadcrumb")) data-pageid="@(Model.displayVar("pageid"))">
+<li ><A href="@(webRootPath)@(Model.displayVar("crumb_home_link"))"><span class="glyphicon glyphicon-home"></span></a>@(Model.displayVar("crumb_dropdown"))</li>
+@foreach (string _crumb in Model.GetSection("crumb", this)){
+  <LI class="@(Model.displayVar("crumb_item_class"))">
+@foreach (string _crumb_title_link in Model.GetSection("crumb_title_link", this)){
+	<A @(Model.displayVar("crumb_attrs"))>@(Model.displayVar("crumb_title"))</a>
+}
+@foreach (string _crumb_title_span in Model.GetSection("crumb_title_span", this)){
+	<SPAN @(Model.displayVar("crumb_attrs"))>@(Model.displayVar("crumb_title"))</span>
+}	
+	@(Model.displayVar("crumb_dropdown"))
+  </li>
+}
+</ol>
+}		</div>					</div>
+	</div>		
+}
+					</div>
+				<div class="r-content">
+										<DIV class="r-left" @(Model.displayVar("blockattr_left")) @(Model.displayVar("form_left"))>
+										@foreach (string _left_block in Model.GetSection("left_block", this)){
+<TABLE class="r-fluid r-form" data-location="left" id="form_left_@(Model.displayVar("pageid"))" data-makeup="topbar" @(Model.displayVar("form_left")) data-pageid="@(Model.displayVar("pageid"))">
+						<tbody>
+			
+								<tr>
+									<TD class=" r-ori-vert			" data-cellId="left_c1" data-pageid="@(Model.displayVar("pageid"))">
+ 
+<!-- Begin Search panel content -->
+<DIV class="searchOptions panel panel-primary searchPanelContainer " @(Model.displayVar("srchOpt_attrs")) data-itemtype="search_panel" data-itemid="search_panel" @(Model.displayVar("item_search_panel")) data-pageid="@(Model.displayVar("pageid"))">
+
+	<div class="panel-heading">
+		<DIV class="btn-group" id="addSearchFieldButton@(Model.displayVar("id"))">
+			<BUTTON id="showHideControlChooseMenu@(Model.displayVar("id"))" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Search in			<span class="caret"></span>
+			</button>
+		</div>
+
+
+		<DIV class="btn-group searchpanel-options" id="searchPanelOptions@(Model.displayVar("id"))">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<span class="glyphicon glyphicon glyphicon-option-vertical"></span>
+			</button>
+			<ul class="dropdown-menu dropdown-left">
+				<LI id="showHideSearchType@(Model.displayVar("id"))" @(Model.displayVar("showHideCtrlsOpt_attrs"))><a>Show options</a></li>
+				<li role="separator" class="divider"></li>
+				<li class="srchCritTop" style="display: none;"><a><INPUT type="radio" name="srchType@(Model.displayVar("id"))" id="radioAll" @(Model.displayVar("all_checkbox")) /><label for="radioAll"><span class="glyphicon">&nbsp;</span>all conditions</label></a></li>
+				<li class="srchCritTop" style="display: none;"><a><INPUT type="radio" name="srchType@(Model.displayVar("id"))" id="radioAny" @(Model.displayVar("any_checkbox")) /><label for="radioAny"><span class="glyphicon">&nbsp;</span>any condition</label></a></li>
+				<li role="separator" class="divider"></li>
+				<li><a class="close-button"><span class="glyphicon glyphicon-remove">&nbsp;</span>hide</a></li>
+			</ul>
+		</div>
+
+
+		</div>
+	<DIV class="panel-body controlsBlock" @(Model.displayVar("bottomSearchButt_attrs"))>
+
+
+		
+		@foreach (string _searchCtrlBlock in Model.GetSection("searchCtrlBlock", this)){
+		<DIV class="srchPanelRow form-group" @(Model.displayVar("filterRow_attrs"))>
+			<label>@(Model.displayVar("fLabel"))</label>	@(Model.displayVar("delCtrlButt"))
+				<span class="rnr-searchtype">@(Model.displayVar("searchtype"))</span>
+				<span class="rnr-searchcontrol">@(Model.displayVar("searchcontrol"))</span>
+				<span class="rnr-searchcontrol">@(Model.displayVar("searchcontrol1"))</span>
+		</div>
+		}
+																		@foreach (string _searchCtrlBlock_swimmer in Model.GetSection("searchCtrlBlock_swimmer", this)){
+
+
+		<DIV class="form-group srchPanelRow @(Model.displayVar("filterRow_class_swimmer"))" @(Model.displayVar("filterRow_attrs_swimmer"))>
+			<label>@(Model.displayVar("label Swimmers_without_Suits_Report swimmer"))</label>
+
+							@(Model.displayVar("delCtrlButt"))
+			
+								<span class="rnr-searchtype">@(Model.displayVar("searchtype_swimmer"))</span>
+								<span class="rnr-searchcontrol">@(Model.displayVar("searchcontrol_swimmer"))</span>
+								<span class="rnr-searchcontrol">@(Model.displayVar("searchcontrol1_swimmer"))</span>
+						</div>
+		}
+																@foreach (string _searchCtrlBlock_suit_size in Model.GetSection("searchCtrlBlock_suit_size", this)){
+
+
+		<DIV class="form-group srchPanelRow @(Model.displayVar("filterRow_class_suit_size"))" @(Model.displayVar("filterRow_attrs_suit_size"))>
+			<label>@(Model.displayVar("label Swimmers_without_Suits_Report suit_size"))</label>
+
+							@(Model.displayVar("delCtrlButt"))
+			
+								<span class="rnr-searchtype">@(Model.displayVar("searchtype_suit_size"))</span>
+								<span class="rnr-searchcontrol">@(Model.displayVar("searchcontrol_suit_size"))</span>
+								<span class="rnr-searchcontrol">@(Model.displayVar("searchcontrol1_suit_size"))</span>
+						</div>
+		}
+																@foreach (string _searchCtrlBlock_suit_type in Model.GetSection("searchCtrlBlock_suit_type", this)){
+
+
+		<DIV class="form-group srchPanelRow @(Model.displayVar("filterRow_class_suit_type"))" @(Model.displayVar("filterRow_attrs_suit_type"))>
+			<label>@(Model.displayVar("label Swimmers_without_Suits_Report suit_type"))</label>
+
+							@(Model.displayVar("delCtrlButt"))
+			
+								<span class="rnr-searchtype">@(Model.displayVar("searchtype_suit_type"))</span>
+								<span class="rnr-searchcontrol">@(Model.displayVar("searchcontrol_suit_type"))</span>
+								<span class="rnr-searchcontrol">@(Model.displayVar("searchcontrol1_suit_type"))</span>
+						</div>
+		}
+		
+
+	</div>
+
+	<DIV class="panel-footer bottomSearchButt" @(Model.displayVar("bottomSearchButt_attrs"))>
+		<BUTTON class="btn btn-primary" id="searchButton@(Model.displayVar("id"))" @(Model.displayVar("searchbutton_attrs"))>Search</button>
+		<BUTTON class="btn btn-default" @(Model.displayVar("showAllCont_attrs")) @(Model.displayVar("showallbutton_attrs"))>Show all</button>
+	</div>
+</div>
+<!-- End Search panel content -->
+
+</td>
+							</tr>
+					
+					</tbody>
+				</table>
+}
+						</div>
+										<div class="r-data-block" data-body-width="standard" >
+						
+										@foreach (string _above_grid_block in Model.GetSection("above-grid_block", this)){
+<DIV class="r-form" data-location="above-grid" id="form_above-grid_@(Model.displayVar("pageid"))" data-makeup="topbar" @(Model.displayVar("form_above-grid")) data-pageid="@(Model.displayVar("pageid"))">		
+	 
+		<div class="row">
+			 
+				<DIV data-cellId="above-grid_c1" data-pageid="@(Model.displayVar("pageid"))" @(Model.displayVar("cell_above-grid_c1")) class=" r-ori-vert			col-md-6
+	
+">
+		@foreach (string _firstAboveGridCell in Model.GetSection("firstAboveGridCell", this)){
+		 
+			<DIV data-itemtype="details_preview" data-itemid="details_preview" @(Model.displayVar("item_details_preview")) data-pageid="@(Model.displayVar("pageid"))" data-orders="public_swimmersuit" data-details-public_swimmersuit>
+		<span data-details-inside data-short-table="public_swimmersuit">
+			</span>
+		<div data-details-preview>
+	</div>
+</div>
+			}	
+	</div>			 
+				<DIV data-cellId="above-grid_c2" data-pageid="@(Model.displayVar("pageid"))" @(Model.displayVar("cell_above-grid_c2")) class="r-align-right			col-md-6
+	
+">
+		 
+		<SPAN data-itemtype="details_found" data-itemid="details_found" @(Model.displayVar("item_details_found")) data-pageid="@(Model.displayVar("pageid"))">
+@(Model.displayVar("records_indicator"))
+</span>	 
+		<SPAN data-itemtype="page_size" data-itemid="page_size" @(Model.displayVar("item_page_size")) data-pageid="@(Model.displayVar("pageid"))">
+		@(Model.displayVar("grpsPerPage"))
+</span>	 
+		@foreach (string _print_friendly in Model.GetSection("print_friendly", this)){
+<SPAN class="bs-printpanel" id="printpanelblock@(Model.displayVar("id"))" data-pageid="@(Model.displayVar("pageid"))" @(Model.displayVar("printpanel_hiddenattr")) data-itemtype="print_panel" data-itemid="print_panel" @(Model.displayVar("item_print_panel")) data-pageid="@(Model.displayVar("pageid"))">
+	<button title="Print-friendly page" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					<span class="glyphicon glyphicon-print"></span>
+				<span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu pull-right">
+										 
+				<li class="container-fluid">
+					<DIV id="print_friendly_scope@(Model.displayVar("id"))">
+	<div class="row">
+		<div class="col-md-4">
+			Scope:		</div>
+
+		@foreach (string _print_friendly_all in Model.GetSection("print_friendly_all", this)){
+		<div class="col-md-8">
+			<LABEL for="printAll@(Model.displayVar("id"))">
+				<INPUT type="radio" id="printAll@(Model.displayVar("id"))" data-href="Swimmers_without_Suits_Report_print.aspx?all=1&amp;@(Model.displayVar("crosstable_attrs"))" name="printScope" />
+									Print whole report							</label>
+		</div>
+		}
+	</div>
+	<div class="row">
+		<div class="col-md-4">&nbsp;</div>
+		<div class="col-md-8">
+			<LABEL for="printPage@(Model.displayVar("id"))">
+				<INPUT name="printScope" id="printPage@(Model.displayVar("id"))" type="radio" checked data-href="Swimmers_without_Suits_Report_print.aspx?@(Model.displayVar("crosstable_attrs"))" />
+				Print this page			</label>
+		</div>
+	</div>
+	
+	</div>				</li>
+								<li class="divider" role="separator"></li>
+															 
+				<li class="container-fluid">
+					<div>
+	<LABEL for="printPerPage@(Model.displayVar("id"))">
+					Groups per page							
+	</label>
+	<INPUT type="number" id="printPerPage@(Model.displayVar("id"))" value="@(Model.displayVar("print_recspp"))" class="rnr-printrecspp" />		
+</div>
+				</li>
+								<li class="divider" role="separator"></li>
+															 
+				<li class="container-fluid">
+					<SPAN data-itemtype="print_button" data-itemid="print_button" @(Model.displayVar("item_print_button")) data-pageid="@(Model.displayVar("pageid"))" data-button-item>
+	<A type="button" class="btn btn-primary   
+	" id="print_friendly_button@(Model.displayVar("id"))">
+							Print			</a>
+</span>
+				</li>
+										</ul>
+</span>
+}
+		</div>					</div>
+	</div>		
+}
+							
+						<div class="r-grid">
+										@foreach (string _grid_block in Model.GetSection("grid_block", this)){
+foreach (string _grid_tabs in Model.GetSection("grid_tabs", this)){
+  <ul class="nav nav-tabs bsgrid_tabs">
+	@(Model.displayVar("grid_tabs_content"))
+  </ul>
+}
+<style>@MvcHtmlString.Create(@"
+	td.pagesummary.pagesummary.pagesummary.pagesummary.pagesummary.pagesummary.pagesummary.pagesummary {
+		background-color: #ffffbb;
+	}
+	td.globalsummary.globalsummary.globalsummary.globalsummary.globalsummary.globalsummary.globalsummary.globalsummary {background-color: #ffe0b0;
+	}
+	.rnr-report {
+		width: 100%;
+	}
+	td {
+		padding: 2px; 4px;
+	}
+			td.group_1{
+			background-color: #FFFFFF;
+		}
+		td.nbgroup_1{
+			background-color: #FFFFFF;
+		}
+		td.header_1 {
+			background-color: #D8D8D8; 
+			font-size: 120%;
+			padding: 2px 8px;
+			font-weight: bold;
+		}
+		td.blackshade {
+		font-size: 120%;
+	}
+	.summaryrow > * {
+		border:solid #808080 1px; 
+		border-left: none; 
+		border-right: none;
+	}
+		.fieldnamesrow > * 
+	{
+		border:solid #808080 1px; 
+		border-left: none; 
+		border-right: none;
+	}")</style>
+<DIV class="rnr-cw-grid rnr-s-2 asbuttons @(Model.displayVar("pageStyleName"))" data-location="grid" id="form_grid_@(Model.displayVar("pageid"))" data-makeup="topbar" @(Model.displayVar("form_grid")) data-pageid="@(Model.displayVar("pageid"))">
+					
+ <!-- add to settings ? -->
+
+
+<table class="table table-striped table-bordered rnr-b-grid rnr-gridtable" cellpadding="0" >
+	<tbody>			
+@foreach (string _grid_row in Model.GetSection("grid_row", this)){
+				<!--  group headers -->
+	 
+		foreach (string _swimmer_newgroup in Model.GetSection("swimmer_newgroup", this)){							
+		<tr class="group-spliter-1"  >
+			<td class="header_1" colspan="2">
+				@(Model.displayVar("label Swimmers_without_Suits_Report swimmer")):&nbsp;
+				@(Model.displayVar("swimmer_grval"))
+			</td>
+		</tr>
+		
+				<tr class="fieldnamesrow group-headers">
+																	<td class="blackshade">@(Model.displayVar("label Swimmers_without_Suits_Report suit_type"))</td>
+														<td class="blackshade">@(Model.displayVar("label Swimmers_without_Suits_Report suit_size"))</td>
+									</tr>
+				}
+		
+
+	
+	<!---  group summary-->
+					foreach (string _swimmer_endgroup in Model.GetSection("swimmer_endgroup", this)){
+
+		<tr style="display:none; height:0px;">
+					<td class="group_1" colspan="2">
+				Summary for @(Model.displayVar("label Swimmers_without_Suits_Report swimmer")) @(Model.displayVar("swimmer_grval")) - <SPAN class="summary-1" data-type="summary" data-value="@(Model.displayVar("groupswimmer_total_cnt"))">
+					@(Model.displayVar("groupswimmer_total_cnt"))
+				</span> records total			</td>			
+				</tr>
+		
+		
+		
+		
+			
+
+		}
+			
+}
+
+
+
+
+	
+
+	</tbody>
+</table>		</div>
+	}							</div>
+						
+										@foreach (string _below_grid_block in Model.GetSection("below-grid_block", this)){
+<DIV class="r-form" data-location="below-grid" id="form_below-grid_@(Model.displayVar("pageid"))" data-makeup="topbar" @(Model.displayVar("form_below-grid")) data-pageid="@(Model.displayVar("pageid"))">		
+	 
+		<div class="row">
+			 
+				<DIV data-cellId="below-grid_c1" data-pageid="@(Model.displayVar("pageid"))" @(Model.displayVar("cell_below-grid_c1")) class="r-align-center r-ori-vert			col-md-12
+	
+">
+		 
+		@foreach (string _pagination_block in Model.GetSection("pagination_block", this)){
+<SPAN data-itemtype="pagination" data-itemid="pagination" @(Model.displayVar("item_pagination")) data-pageid="@(Model.displayVar("pageid"))">
+@(Model.displayVar("pagination"))
+</span>
+}
+		</div>					</div>
+	</div>		
+}
+							
+					</div>
+				</div>
+			</div>
+		</div>
+		{Html.RenderSharedView("footer");}
+	}
+	</body>
+</html>

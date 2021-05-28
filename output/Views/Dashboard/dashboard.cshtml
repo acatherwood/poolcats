@@ -1,0 +1,183 @@
+﻿@using runnerDotNet;
+@{
+ XTempl Model = this.Model;
+ if(ViewBag != null && ViewBag.xt != null)
+ {
+  Model = ViewBag.xt;
+  if(Model != null)
+  {
+   Model.currentViewContext = ViewContext;
+  }
+ }
+ string webRootPath = MVCFunctions.GetWebRootPath();
+}
+
+<!doctype html>@(new HtmlString(MVCFunctions.GetBuferContentAndClearBufer()))
+<HTML @(Model.displayVar("html_attrs"))>
+	<head>
+		<META http-equiv="X-UA-Compatible" content="IE=Edge" />
+		<META name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>@(Model.displayVar("pagetitle"))</title>
+
+		<META http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<LINK REL="stylesheet" href="@(webRootPath)styles/default.css" type="text/css" />
+		@foreach (string _rtlCSS in Model.GetSection("rtlCSS", this)){
+		<LINK REL="stylesheet" href="@(webRootPath)styles/defaultRTL.css" type="text/css" />
+		}
+		@foreach (string _styleCSSFiles in Model.GetSection("styleCSSFiles", this)){
+		<LINK REL="stylesheet" href="@(webRootPath)@(Model.displayVar("stylepath"))" type="text/css" />
+		}
+	</head>
+	<BODY class="@(Model.displayVar("stylename")) function-dashboard" @(Model.displayVar("bodyattrs"))>
+	@foreach (string _body in Model.GetSection("body", this)){
+		{Html.RenderSharedView("header");}
+		<style>@MvcHtmlString.Create(@"")@(Model.displayVar("containerCss"))@MvcHtmlString.Create(@"")</style>
+		<div class="r-topbar-page">
+			<div data-menu-width="full" 
+				 
+				class="r-topheader" 
+				data-resize-name="topbar"
+				data-body-align="left"
+			>
+								@foreach (string _supertop_block in Model.GetSection("supertop_block", this)){
+<NAV class="navbar navbar-default
+	bs-fullwidth-navbar
+" data-location="supertop" id="form_supertop_@(Model.displayVar("pageid"))" data-makeup="topbar" @(Model.displayVar("form_supertop")) data-pageid="@(Model.displayVar("pageid"))">
+			 
+			 
+				<SPAN data-cellId="supertop_c1" data-pageid="@(Model.displayVar("pageid"))" class="r-align-left navbar-header" data-itemid="logo" @(Model.displayVar("item_logo"))>
+				@foreach (string _logo_block in Model.GetSection("logo_block", this)){
+	<A data-itemtype="logo" data-itemid="logo" @(Model.displayVar("item_logo")) data-pageid="@(Model.displayVar("pageid"))" class="navbar-brand" href="@(webRootPath)@(Model.displayVar("home_link"))" data-brick="logo" data-pageid="@(Model.displayVar("pageid"))" @(Model.displayVar("logo_hiddenattr"))>
+		@(Model.displayVar("logo"))
+	</A>
+}
+				<button data-pageid="1" type="button" class="navbar-toggle collapsed" data-runner-toggle="collapse" data-target="[data-mobile-controlled]">	
+					<span class="sr-only">Toggle navigation</span>	
+					<span class="icon-bar"></span>					
+				</button>				
+			</span>
+		 
+				<SPAN data-cellId="supertop_c1" data-pageid="@(Model.displayVar("pageid"))" class="r-align-left navbar-collapse" data-itemtype="menu" data-itemid="menu" @(Model.displayVar("item_menu")) data-pageid="@(Model.displayVar("pageid"))">
+				@(Model.displayVar("menu main horizontal"))			</span>
+				 
+			 
+				<SPAN class="navbar-form r-align-right navbar-collapse" data-cellId="supertop_c2" data-pageid="@(Model.displayVar("pageid"))" data-itemid="username_button" @(Model.displayVar("item_username_button")) data-topcell-item-type="username_button">
+				@foreach (string _loggedas_message in Model.GetSection("loggedas_message", this)){
+<SPAN data-itemtype="username_button" data-itemid="username_button" @(Model.displayVar("item_username_button")) data-pageid="@(Model.displayVar("pageid"))" data-button-item>
+	<span class="dropdown">
+		<button type="button" class="btn btn-default   dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">		
+							<span class="glyphicon glyphicon-user"></span>
+						@(Model.displayVar("username"))			<span class="caret"></span>
+		</button>
+		<ul class="dropdown-menu">
+							@foreach (string _logoutbutton in Model.GetSection("logoutbutton", this)){
+	<LI data-itemtype="logout_link" data-itemid="logout_link" @(Model.displayVar("item_logout_link")) data-pageid="@(Model.displayVar("pageid"))">
+				<A href="#" @(Model.displayVar("logoutlink_attrs"))>
+				
+		Log out		
+		</a>
+	</li>
+}
+					</ul>
+	</span>
+</span>
+}
+			</span>
+		 
+				<SPAN class="navbar-form r-align-right navbar-collapse" data-cellId="supertop_c2" data-pageid="@(Model.displayVar("pageid"))" data-itemid="loginform_login" @(Model.displayVar("item_loginform_login")) data-topcell-item-type="loginform_login">
+				@foreach (string _guestloginbutton in Model.GetSection("guestloginbutton", this)){
+<SPAN data-itemtype="loginform_login" data-itemid="loginform_login" @(Model.displayVar("item_loginform_login")) data-pageid="@(Model.displayVar("pageid"))" data-button-item>
+	<A type="button" class="btn btn-primary   
+	" href="#" @(Model.displayVar("guestloginlink_attrs"))>
+							Login			</a>
+</span>
+}
+			</span>
+		 
+				<SPAN class="navbar-form r-align-right navbar-collapse" data-cellId="supertop_c2" data-pageid="@(Model.displayVar("pageid"))" data-itemid="simple_search" @(Model.displayVar("item_simple_search")) data-topcell-item-type="simple_search">
+				<SPAN data-itemtype="simple_search" data-itemid="simple_search" @(Model.displayVar("item_simple_search")) data-pageid="@(Model.displayVar("pageid"))" class="form-group">
+
+<div  class="input-group">
+@foreach (string _searchform_text in Model.GetSection("searchform_text", this)){
+	<INPUT type="search" class="form-control" @(Model.displayVar("searchfor_attrs")) size="25" />
+}
+	<span class="input-group-btn">
+	@foreach (string _searchform_showall in Model.GetSection("searchform_showall", this)){
+		<BUTTON class="btn btn-default" @(Model.displayVar("showAllCont_attrs")) @(Model.displayVar("showallbutton_attrs")) title="Show all">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	}
+	@foreach (string _searchform_search in Model.GetSection("searchform_search", this)){
+	<BUTTON @(Model.displayVar("searchbutton_attrs")) class="btn btn-primary">
+		<span class="glyphicon glyphicon-search"></span>
+	</button>
+	}
+	</span>
+</div>
+		
+</span>			</span>
+					</nav>
+}
+				</div>	
+			
+			<div data-body-align="left"  data-body-width="standard" class="r-body" data-resize-top="topbar" >
+				<div class="r-top">
+								@foreach (string _top_block in Model.GetSection("top_block", this)){
+<DIV class="r-form" data-location="top" id="form_top_@(Model.displayVar("pageid"))" data-makeup="topbar" @(Model.displayVar("form_top")) data-pageid="@(Model.displayVar("pageid"))">		
+	 
+		<div class="row">
+			 
+				<DIV data-cellId="top_c1" data-pageid="@(Model.displayVar("pageid"))" @(Model.displayVar("cell_top_c1")) class=" r-ori-vert			col-md-12
+	
+">
+		 
+		@foreach (string _breadcrumb in Model.GetSection("breadcrumb", this)){
+<OL class="breadcrumb" data-itemtype="breadcrumb" data-itemid="breadcrumb" @(Model.displayVar("item_breadcrumb")) data-pageid="@(Model.displayVar("pageid"))">
+<li ><A href="@(webRootPath)@(Model.displayVar("crumb_home_link"))"><span class="glyphicon glyphicon-home"></span></a>@(Model.displayVar("crumb_dropdown"))</li>
+@foreach (string _crumb in Model.GetSection("crumb", this)){
+  <LI class="@(Model.displayVar("crumb_item_class"))">
+@foreach (string _crumb_title_link in Model.GetSection("crumb_title_link", this)){
+	<A @(Model.displayVar("crumb_attrs"))>@(Model.displayVar("crumb_title"))</a>
+}
+@foreach (string _crumb_title_span in Model.GetSection("crumb_title_span", this)){
+	<SPAN @(Model.displayVar("crumb_attrs"))>@(Model.displayVar("crumb_title"))</span>
+}	
+	@(Model.displayVar("crumb_dropdown"))
+  </li>
+}
+</ol>
+}		</div>					</div>
+	</div>		
+}
+					</div>
+				<div class="r-content">
+										<div class="r-data-block" data-body-width="standard" >
+						
+														
+						<div class="r-grid">
+										<table cellpadding=0 cellspacing=0 class="bs-dashboard" >
+	<tr>
+			<td class="bs-dbelement" colspan="1" rowspan="1">
+				</td>
+			<td class="bs-dbelement" colspan="1" rowspan="1">
+				</td>
+		</tr>
+	<tr>
+			<td class="bs-dbelement" colspan="1" rowspan="1">
+				</td>
+			<td class="bs-dbelement" colspan="1" rowspan="1">
+				</td>
+		</tr>
+
+</table>
+							</div>
+						
+														
+					</div>
+				</div>
+			</div>
+		</div>
+		{Html.RenderSharedView("footer");}
+	}
+	</body>
+</html>
